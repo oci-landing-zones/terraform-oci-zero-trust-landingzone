@@ -1,0 +1,1099 @@
+variable "tenancy_ocid" {
+  description = "The OCID of the tenancy"
+  type        = string
+}
+
+variable "user_ocid" {
+  description = "The OCID of the user"
+  type        = string
+}
+
+variable "fingerprint" {
+  description = "The fingerprint for the API key"
+  type        = string
+}
+
+variable "private_key_path" {
+  description = "The path to the private key file"
+  type        = string
+}
+
+variable "private_key_password" {
+  description = "The password for the private key"
+  type        = string
+}
+
+variable "region" {
+  description = "The region for the resources"
+  type        = string
+}
+
+variable "service_label" {
+  description = "The service label for the deployment"
+  type        = string
+}
+
+variable "cis_level" {
+  description = "CIS compliance level"
+  type        = number
+}
+
+variable "extend_landing_zone_to_new_region" {
+  description = "Flag to extend the landing zone to a new region"
+  type        = bool
+}
+
+variable "customize_iam" {
+  description = "Flag to customize IAM"
+  type        = bool
+  default = false
+}
+
+variable "customize_net" {
+  description = "Flag to customize networking"
+  type        = bool
+  default = true
+}
+
+variable "enclosing_compartment_options" {
+  description = "Options for the enclosing compartment"
+  type        = string
+  default = "Yes, deploy new"
+}
+
+variable "enclosing_compartment_parent_ocid" {
+  description = "OCID of the parent compartment"
+  type        = string
+  default     = null
+}
+
+variable "existing_enclosing_compartment_ocid" {
+  description = "OCID of the existing enclosing compartment"
+  type        = string
+  default     = null
+}
+
+variable "deploy_exainfra_cmp" {
+  description = "Flag to deploy Exainfra compartment"
+  type        = bool
+  default = false
+}
+
+variable "use_custom_id_domain" {
+  description = "Flag to use a custom ID domain"
+  type        = bool
+}
+
+variable "custom_id_domain_name" {
+  description = "Name of the custom ID domain"
+  type        = string
+  default     = null
+}
+
+variable "rm_existing_id_domain_iam_admin_group_name" {
+  description = "List of IAM admin group names to be removed from the existing ID domain"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_id_domain_cred_admin_group_name" {
+  description = "List of credential admin group names to be removed from the existing ID domain"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_id_domain_security_admin_group_name" {
+  description = "List of security admin group names to be removed from the existing ID domain"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_id_domain_network_admin_group_name" {
+  description = "List of network admin group names to be removed from the existing ID domain"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_id_domain_appdev_admin_group_name" {
+  description = "List of appdev admin group names to be removed from the existing ID domain"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_id_domain_database_admin_group_name" {
+  description = "List of database admin group names to be removed from the existing ID domain"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_id_domain_auditor_group_name" {
+  description = "List of auditor group names to be removed from the existing ID domain"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_id_domain_announcement_reader_group_name" {
+  description = "List of announcement reader group names to be removed from the existing ID domain"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_id_domain_exainfra_admin_group_name" {
+  description = "List of Exainfra admin group names to be removed from the existing ID domain"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_id_domain_cost_admin_group_name" {
+  description = "List of cost admin group names to be removed from the existing ID domain"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_id_domain_storage_admin_group_name" {
+  description = "List of storage admin group names to be removed from the existing ID domain"
+  type        = list(string)
+  default     = []
+}
+
+variable "existing_id_domain_security_fun_dyn_group_name" {
+  description = "Existing security function dynamic group name"
+  type        = string
+   default = ""
+}
+
+variable "existing_id_domain_appdev_fun_dyn_group_name" {
+  description = "Existing appdev function dynamic group name"
+  type        = string
+  default = ""
+}
+
+variable "existing_id_domain_compute_agent_dyn_group_name" {
+  description = "Existing compute agent dynamic group name"
+  type        = string
+   default = ""
+}
+
+variable "existing_id_domain_database_kms_dyn_group_name" {
+  description = "Existing database KMS dynamic group name"
+  type        = string
+   default = ""
+}
+
+variable "groups_options" {
+  description = "Options for the groups"
+  type        = string
+   default = ""
+}
+
+variable "rm_existing_iam_admin_group_name" {
+  description = "List of IAM admin group names to be removed"
+  type        = string
+  default = ""
+}
+
+variable "existing_iam_admin_group_name" {
+  description = "List of existing IAM admin group names"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_cred_admin_group_name" {
+  description = "List of credential admin group names to be removed"
+  type        = string
+  default = ""
+}
+
+variable "existing_cred_admin_group_name" {
+  description = "List of existing credential admin group names"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_security_admin_group_name" {
+  description = "List of security admin group names to be removed"
+  type        = string
+  default = ""
+}
+
+variable "existing_security_admin_group_name" {
+  description = "List of existing security admin group names"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_network_admin_group_name" {
+  description = "List of network admin group names to be removed"
+  type        = string
+  default = ""
+}
+
+variable "existing_network_admin_group_name" {
+  description = "List of existing network admin group names"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_appdev_admin_group_name" {
+  description = "List of appdev admin group names to be removed"
+  type        = string
+  default = ""
+}
+
+variable "existing_appdev_admin_group_name" {
+  description = "List of existing appdev admin group names"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_database_admin_group_name" {
+  description = "List of database admin group names to be removed"
+  type        = string
+  default = ""
+}
+
+variable "existing_database_admin_group_name" {
+  description = "List of existing database admin group names"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_auditor_group_name" {
+  description = "List of auditor group names to be removed"
+  type        = string
+  default = ""
+}
+
+variable "existing_auditor_group_name" {
+  description = "List of existing auditor group names"
+  type        = list(string)
+  default     = []
+}
+
+variable "rm_existing_cost_admin_group_name" {
+  description = "List of cost admin group names to be removed"
+  type        = string
+  default = ""
+}
+
+variable "rm_existing_storage_admin_group_name" {
+  description = "List of storage admin group names to be removed"
+  type        = string
+  default = ""
+}
+
+variable "existing_security_fun_dyn_group_name" {
+  description = "Existing security function dynamic group name"
+  type        = string
+  default = ""
+}
+
+variable "existing_appdev_fun_dyn_group_name" {
+  description = "Existing appdev function dynamic group name"
+  type        = string
+  default = ""
+}
+
+variable "existing_compute_agent_dyn_group_name" {
+  description = "Existing compute agent dynamic group name"
+  type        = string
+  default = ""
+}
+
+variable "existing_database_kms_dyn_group_name" {
+  description = "Existing database KMS dynamic group name"
+  type        = string
+  default = ""
+}
+
+variable "policies_in_root_compartment" {
+  description = "Options for policies in the root compartment"
+  type        = string
+  default     = "CREATE"
+}
+
+variable "hub_deployment_option" {
+  description = "Deployment option for the hub"
+  type        = string
+}
+
+variable "hub_vcn_name" {
+  description = "Name of the hub VCN"
+  type        = string
+}
+
+variable "hub_vcn_dns" {
+  description = "DNS label for the hub VCN"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_cidrs" {
+  description = "CIDRs for the hub VCN"
+  type        = list(string)
+}
+
+variable "customize_hub_vcn_subnets" {
+  description = "Flag to customize hub VCN subnets"
+  type        = bool
+}
+
+variable "hub_vcn_web_subnet_name" {
+  description = "Name of the web subnet in the hub VCN"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_web_subnet_cidr" {
+  description = "CIDR for the web subnet in the hub VCN"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_web_subnet_dns" {
+  description = "DNS label for the web subnet in the hub VCN"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_web_subnet_is_private" {
+  description = "Flag to make the web subnet in the hub VCN private"
+  type        = bool
+}
+
+variable "hub_vcn_web_subnet_jump_host_allowed_cidrs" {
+  description = "Allowed CIDRs for the jump host in the web subnet of the hub VCN"
+  type        = list(string)
+  default     = []
+}
+
+variable "hub_vcn_mgmt_subnet_name" {
+  description = "Name of the management subnet in the hub VCN"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_mgmt_subnet_cidr" {
+  description = "CIDR for the management subnet in the hub VCN"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_mgmt_subnet_dns" {
+  description = "DNS label for the management subnet in the hub VCN"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_mgmt_subnet_external_allowed_cidrs_for_ssh" {
+  description = "Allowed CIDRs for external SSH access in the management subnet of the hub VCN"
+  type        = list(string)
+  default     = []
+}
+
+variable "hub_vcn_outdoor_subnet_name" {
+  description = "Name of the outdoor subnet in the hub VCN"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_outdoor_subnet_cidr" {
+  description = "CIDR for the outdoor subnet in the hub VCN"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_outdoor_subnet_dns" {
+  description = "DNS label for the outdoor subnet in the hub VCN"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_indoor_subnet_name" {
+  description = "Name of the indoor subnet in the hub VCN"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_indoor_subnet_cidr" {
+  description = "CIDR for the indoor subnet in the hub VCN"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_indoor_subnet_dns" {
+  description = "DNS label for the indoor subnet in the hub VCN"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_deploy_firewall_option" {
+  description = "Option to deploy firewall in the hub VCN"
+  type        = string
+}
+
+variable "hub_vcn_north_south_entry_point_ocid" {
+  description = "OCID for the hub VCN north-south entry point"
+  type        = string
+  default     = ""
+}
+
+variable "hub_vcn_east_west_entry_point_ocid" {
+  description = "OCID for the hub VCN east-west entry point"
+  type        = string
+  default     = ""
+}
+
+variable "add_oke_vcn1" {
+  description = "Flag to add OKE VCN 1"
+  type        = bool
+}
+
+variable "oke_vcn1_cni_type" {
+  description = "CNI type for OKE VCN 1"
+  type        = string
+}
+
+variable "oke_vcn1_name" {
+  description = "Name of OKE VCN 1"
+  type        = string
+}
+
+variable "oke_vcn1_cidrs" {
+  description = "CIDRs for OKE VCN 1"
+  type        = list(string)
+}
+
+variable "oke_vcn1_dns" {
+  description = "DNS label for OKE VCN 1"
+  type        = string
+}
+
+variable "oke_vcn1_attach_to_drg" {
+  description = "Flag to attach OKE VCN 1 to DRG"
+  type        = bool
+}
+
+variable "oke_vcn1_routable_vcns" {
+  description = "List of routable VCNs for OKE VCN 1"
+  type        = list(string)
+}
+
+variable "enable_service_connector" {
+  description = "Flag to enable Service Connector"
+  type        = bool
+}
+
+variable "activate_service_connector" {
+  description = "Flag to activate Service Connector"
+  type        = bool
+}
+
+variable "service_connector_target_kind" {
+  description = "Target kind for Service Connector"
+  type        = string
+}
+
+variable "onboard_logging_analytics" {
+  description = "Flag to onboard Logging Analytics"
+  type        = bool
+}
+
+variable "existing_service_connector_bucket_vault_compartment_id" {
+  description = "Existing compartment ID for the Service Connector bucket vault"
+  type        = string
+  default     = ""
+}
+
+variable "existing_service_connector_bucket_vault_id" {
+  description = "Existing vault ID for the Service Connector bucket"
+  type        = string
+  default     = ""
+}
+
+variable "existing_service_connector_bucket_key_id" {
+  description = "Existing key ID for the Service Connector bucket"
+  type        = string
+  default     = ""
+}
+
+variable "existing_service_connector_target_stream_id" {
+  description = "Existing target stream ID for the Service Connector"
+  type        = string
+  default     = ""
+}
+
+variable "existing_service_connector_target_function_id" {
+  description = "Existing target function ID for the Service Connector"
+  type        = string
+  default     = ""
+}
+
+variable "budget_alert_email_endpoints" {
+  description = "Email endpoints for budget alerts"
+  type        = list(string)
+  default     = []
+}
+
+variable "budget_alert_notification_thresholds" {
+  description = "Notification thresholds for budget alerts"
+  type        = list(number)
+  default     = []
+}
+
+variable "budget_amount" {
+  description = "Budget amount"
+  type        = number
+  default     = 1000
+}
+
+variable "create_budget" {
+  description = "Flag to create a budget"
+  type        = bool
+}
+
+# NET_THREE_TIER_VCNS #
+variable "add_tt_vcn1" {
+  description = "Flag to add TT VCN 1"
+  type        = bool
+}
+
+variable "tt_vcn1_name" {
+  description = "Name of TT VCN 1"
+  type        = string
+}
+
+variable "tt_vcn1_cidrs" {
+  description = "CIDRs for TT VCN 1"
+  type        = list(string)
+}
+
+variable "tt_vcn1_dns" {
+  description = "DNS label for TT VCN 1"
+  type        = string
+}
+
+variable "tt_vcn1_attach_to_drg" {
+  description = "Flag to attach TT VCN 1 to DRG"
+  type        = bool
+}
+
+variable "tt_vcn1_routable_vcns" {
+  description = "List of routable VCNs for TT VCN 1"
+  type        = list(string)
+  default     = []
+}
+
+variable "customize_tt_vcn1_subnets" {
+  description = "Flag to customize TT VCN 1 subnets"
+  type        = bool
+}
+
+variable "tt_vcn1_web_subnet_name" {
+  description = "Name of the web subnet in TT VCN 1"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn1_web_subnet_cidr" {
+  description = "CIDR for the web subnet in TT VCN 1"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn1_web_subnet_dns" {
+  description = "DNS label for the web subnet in TT VCN 1"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn1_web_subnet_is_private" {
+  description = "Flag to make the web subnet in TT VCN 1 private"
+  type        = bool
+}
+
+variable "tt_vcn1_app_subnet_name" {
+  description = "Name of the app subnet in TT VCN 1"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn1_app_subnet_cidr" {
+  description = "CIDR for the app subnet in TT VCN 1"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn1_app_subnet_dns" {
+  description = "DNS label for the app subnet in TT VCN 1"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn1_db_subnet_name" {
+  description = "Name of the DB subnet in TT VCN 1"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn1_db_subnet_cidr" {
+  description = "CIDR for the DB subnet in TT VCN 1"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn1_db_subnet_dns" {
+  description = "DNS label for the DB subnet in TT VCN 1"
+  type        = string
+  default     = ""
+}
+
+variable "deploy_tt_vcn1_bastion_subnet" {
+  description = "Flag to deploy a bastion subnet in TT VCN 1"
+  type        = bool
+  default = false
+}
+
+variable "tt_vcn1_bastion_subnet_name" {
+  description = "Name of the bastion subnet in TT VCN 1"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn1_bastion_subnet_cidr" {
+  description = "CIDR for the bastion subnet in TT VCN 1"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn1_bastion_subnet_allowed_cidrs" {
+  description = "Allowed CIDRs for the bastion subnet in TT VCN 1"
+  type        = list(string)
+  default     = []
+}
+
+variable "tt_vcn1_bastion_is_access_via_public_endpoint" {
+  description = "Flag to allow bastion access via public endpoint in TT VCN 1"
+  type        = bool
+  default = false
+}
+
+variable "add_tt_vcn2" {
+  description = "Flag to add TT VCN 2"
+  type        = bool
+}
+
+variable "tt_vcn2_name" {
+  description = "Name of TT VCN 2"
+  type        = string
+}
+
+variable "tt_vcn2_cidrs" {
+  description = "CIDRs for TT VCN 2"
+  type        = list(string)
+}
+
+variable "tt_vcn2_dns" {
+  description = "DNS label for TT VCN 2"
+  type        = string
+}
+
+variable "tt_vcn2_attach_to_drg" {
+  description = "Flag to attach TT VCN 2 to DRG"
+  type        = bool
+}
+
+variable "tt_vcn2_routable_vcns" {
+  description = "List of routable VCNs for TT VCN 2"
+  type        = list(string)
+  default     = ["TT-VCN-1","TT-VCN-3","OKE-VCN-1"]
+}
+
+variable "customize_tt_vcn2_subnets" {
+  description = "Flag to customize TT VCN 2 subnets"
+  type        = bool
+  default = false
+}
+
+variable "tt_vcn2_web_subnet_name" {
+  description = "Name of the web subnet in TT VCN 2"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn2_web_subnet_cidr" {
+  description = "CIDR for the web subnet in TT VCN 2"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn2_web_subnet_dns" {
+  description = "DNS label for the web subnet in TT VCN 2"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn2_web_subnet_is_private" {
+  description = "Flag to make the web subnet in TT VCN 2 private"
+  type        = bool
+  default = false
+}
+
+variable "tt_vcn2_app_subnet_name" {
+  description = "Name of the app subnet in TT VCN 2"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn2_app_subnet_cidr" {
+  description = "CIDR for the app subnet in TT VCN 2"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn2_app_subnet_dns" {
+  description = "DNS label for the app subnet in TT VCN 2"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn2_db_subnet_name" {
+  description = "Name of the DB subnet in TT VCN 2"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn2_db_subnet_cidr" {
+  description = "CIDR for the DB subnet in TT VCN 2"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn2_db_subnet_dns" {
+  description = "DNS label for the DB subnet in TT VCN 2"
+  type        = string
+  default     = ""
+}
+
+variable "deploy_tt_vcn2_bastion_subnet" {
+  description = "Flag to deploy a bastion subnet in TT VCN 2"
+  type        = bool
+  default = false
+}
+
+variable "tt_vcn2_bastion_subnet_name" {
+  description = "Name of the bastion subnet in TT VCN 2"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn2_bastion_subnet_cidr" {
+  description = "CIDR for the bastion subnet in TT VCN 2"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn2_bastion_subnet_allowed_cidrs" {
+  description = "Allowed CIDRs for the bastion subnet in TT VCN 2"
+  type        = list(string)
+  default     = []
+}
+
+variable "tt_vcn2_bastion_is_access_via_public_endpoint" {
+  description = "Flag to allow bastion access via public endpoint in TT VCN 2"
+  type        = bool
+  default = false
+}
+
+variable "add_tt_vcn3" {
+  description = "Flag to add TT VCN 3"
+  type        = bool
+}
+
+variable "tt_vcn3_name" {
+  description = "Name of TT VCN 3"
+  type        = string
+}
+
+variable "tt_vcn3_cidrs" {
+  description = "CIDRs for TT VCN 3"
+  type        = list(string)
+}
+
+variable "tt_vcn3_dns" {
+  description = "DNS label for TT VCN 3"
+  type        = string
+  default = ""
+}
+
+variable "tt_vcn3_attach_to_drg" {
+  description = "Flag to attach TT VCN 3 to DRG"
+  type        = bool
+  default = false
+}
+
+variable "tt_vcn3_routable_vcns" {
+  description = "List of routable VCNs for TT VCN 3"
+  type        = list(string)
+}
+
+variable "customize_tt_vcn3_subnets" {
+  description = "Flag to customize TT VCN 3 subnets"
+  type        = bool
+  default = false
+}
+
+variable "tt_vcn3_web_subnet_name" {
+  description = "Name of the web subnet in TT VCN 3"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn3_web_subnet_cidr" {
+  description = "CIDR for the web subnet in TT VCN 3"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn3_web_subnet_dns" {
+  description = "DNS label for the web subnet in TT VCN 3"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn3_web_subnet_is_private" {
+  description = "Flag to make the web subnet in TT VCN 3 private"
+  type        = bool
+  default = false
+}
+
+variable "tt_vcn3_app_subnet_name" {
+  description = "Name of the app subnet in TT VCN 3"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn3_app_subnet_cidr" {
+  description = "CIDR for the app subnet in TT VCN 3"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn3_app_subnet_dns" {
+  description = "DNS label for the app subnet in TT VCN 3"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn3_db_subnet_name" {
+  description = "Name of the DB subnet in TT VCN 3"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn3_db_subnet_cidr" {
+  description = "CIDR for the DB subnet in TT VCN 3"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn3_db_subnet_dns" {
+  description = "DNS label for the DB subnet in TT VCN 3"
+  type        = string
+  default     = ""
+}
+
+variable "deploy_tt_vcn3_bastion_subnet" {
+  description = "Flag to deploy a bastion subnet in TT VCN 3"
+  type        = bool
+  default = false
+}
+
+variable "tt_vcn3_bastion_subnet_name" {
+  description = "Name of the bastion subnet in TT VCN 3"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn3_bastion_subnet_cidr" {
+  description = "CIDR for the bastion subnet in TT VCN 3"
+  type        = string
+  default     = ""
+}
+
+variable "tt_vcn3_bastion_subnet_allowed_cidrs" {
+  description = "Allowed CIDRs for the bastion subnet in TT VCN 3"
+  type        = list(string)
+  default     = []
+}
+
+variable "tt_vcn3_bastion_is_access_via_public_endpoint" {
+  description = "Flag to allow bastion access via public endpoint in TT VCN 3"
+  type        = bool
+  default = false
+}
+
+# SECURITY #
+variable "enable_security_zones" {
+  description = "Flag to enable security zones"
+  type        = bool
+  default = false
+}
+
+variable "sz_security_policies" {
+  description = "List of security policies for security zones"
+  type        = list(string)
+  default     = []
+}
+
+variable "enable_cloud_guard" {
+  description = "Flag to enable Cloud Guard"
+  type        = bool
+  default = false
+}
+
+variable "enable_cloud_guard_cloned_recipes" {
+  description = "Flag to enable Cloud Guard cloned recipes"
+  type        = bool
+  default = false
+}
+
+variable "cloud_guard_reporting_region" {
+  description = "Region for Cloud Guard reporting"
+  type        = string
+  default     = null
+}
+
+variable "cloud_guard_risk_level_threshold" {
+  description = "Risk level threshold for Cloud Guard"
+  type        = string
+  default     = "High"
+}
+
+variable "cloud_guard_admin_email_endpoints" {
+  description = "List of email endpoints for Cloud Guard admin notifications"
+  type        = list(string)
+  default     = []
+}
+
+# VSS #
+variable "vss_create" {
+  description = "Flag to create VSS"
+  type        = bool
+  default = false
+}
+
+variable "vss_scan_schedule" {
+  description = "Scan schedule for VSS"
+  type        = string
+  default     = "WEEKLY"
+}
+
+variable "vss_scan_day" {
+  description = "Day for VSS scan"
+  type        = string
+  default     = "SUNDAY"
+}
+
+variable "vss_port_scan_level" {
+  description = "Port scan level for VSS"
+  type        = string
+  default     = "STANDARD"
+}
+
+variable "vss_agent_scan_level" {
+  description = "Agent scan level for VSS"
+  type        = string
+  default     = "STANDARD"
+}
+
+variable "vss_agent_cis_benchmark_settings_scan_level" {
+  description = "CIS benchmark scan level for VSS agent"
+  type        = string
+  default     = "MEDIUM"
+}
+
+variable "vss_enable_file_scan" {
+  description = "Flag to enable file scan in VSS"
+  type        = bool
+  default = false
+}
+
+variable "vss_folders_to_scan" {
+  description = "List of folders to scan in VSS"
+  type        = list(string)
+  default     = []
+}
+
+# Alerts #
+variable "network_admin_email_endpoints" {
+  description = "List of email endpoints for network admin notifications"
+  type        = list(string)
+  default     = []
+}
+
+variable "security_admin_email_endpoints" {
+  description = "List of email endpoints for security admin notifications"
+  type        = list(string)
+  default     = []
+}
+
+variable "storage_admin_email_endpoints" {
+  description = "List of email endpoints for storage admin notifications"
+  type        = list(string)
+  default     = []
+}
+
+variable "compute_admin_email_endpoints" {
+  description = "List of email endpoints for compute admin notifications"
+  type        = list(string)
+  default     = []
+}
+
+variable "budget_admin_email_endpoints" {
+  description = "List of email endpoints for budget admin notifications"
+  type        = list(string)
+  default     = []
+}
+
+variable "database_admin_email_endpoints" {
+  description = "List of email endpoints for database admin notifications"
+  type        = list(string)
+  default     = []
+}
+
+variable "exainfra_admin_email_endpoints" {
+  description = "List of email endpoints for Exainfra admin notifications"
+  type        = list(string)
+  default     = []
+}
+
+variable "create_alarms_as_enabled" {
+  description = "Flag to create alarms as enabled"
+  type        = bool
+  default = false
+}
+
+variable "create_events_as_enabled" {
+  description = "Flag to create events as enabled"
+  type        = bool
+  default = false
+}
+
+variable "alarm_message_format" {
+  description = "Message format for alarms"
+  type        = string
+  default     = "PRETTY_JSON"
+}
+
+variable "notifications_advanced_options" {
+  description = "Flag to enable advanced options for notifications"
+  type        = bool
+  default = false
+}
+
+variable "budget_alert_threshold" {
+  description = "Threshold for budget alerts"
+  type        = number
+  default     = 100
+}
