@@ -17,6 +17,7 @@ module "zero-trust-landing-zone" {
   extend_landing_zone_to_new_region = var.extend_landing_zone_to_new_region
   customize_iam               = var.customize_iam
   customize_net               = var.customize_net
+  display_output              =  var.display_output
 
 
   
@@ -42,6 +43,11 @@ module "zero-trust-landing-zone" {
   existing_id_domain_appdev_fun_dyn_group_name = var.existing_id_domain_appdev_fun_dyn_group_name
   existing_id_domain_compute_agent_dyn_group_name = var.existing_id_domain_compute_agent_dyn_group_name
   existing_id_domain_database_kms_dyn_group_name = var.existing_id_domain_database_kms_dyn_group_name
+  rm_existing_id_domain_ag_admin_group_name = var.rm_existing_id_domain_ag_admin_group_name
+  existing_id_domain_net_fw_app_dyn_group_name = var.existing_id_domain_net_fw_app_dyn_group_name
+  rm_existing_ag_admin_group_name = var.rm_existing_ag_admin_group_name
+  existing_ag_admin_group_name = var.existing_ag_admin_group_name
+  existing_net_fw_app_dyn_group_name = var.existing_net_fw_app_dyn_group_name
   groups_options = var.groups_options
   rm_existing_iam_admin_group_name = var.rm_existing_iam_admin_group_name
   existing_iam_admin_group_name = var.existing_iam_admin_group_name
@@ -136,11 +142,12 @@ tt_vcn3_bastion_subnet_name = var.tt_vcn3_bastion_subnet_name
 tt_vcn3_bastion_subnet_cidr = var.tt_vcn3_bastion_subnet_cidr
 tt_vcn3_bastion_subnet_allowed_cidrs = var.tt_vcn3_bastion_subnet_allowed_cidrs
 tt_vcn3_bastion_is_access_via_public_endpoint = var.tt_vcn3_bastion_is_access_via_public_endpoint
-
+fw_instance_public_rsa_key = var.fw_instance_public_rsa_key
 
 # SECURITY #
 enable_security_zones = var.enable_security_zones
 sz_security_policies = var.sz_security_policies
+security_zones_reporting_region = var.security_zones_reporting_region
 enable_cloud_guard = var.enable_cloud_guard
 enable_cloud_guard_cloned_recipes = var.enable_cloud_guard_cloned_recipes
 cloud_guard_reporting_region = var.cloud_guard_reporting_region

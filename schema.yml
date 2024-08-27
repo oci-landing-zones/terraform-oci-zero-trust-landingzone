@@ -5,7 +5,7 @@ title: "OCI Zero Trust Landing Zone"
 stackDescription: "This stack deploys the OCI Zero Trust Landing Zone, a fully operational tenancy that combines the recommendations of CIS Foundations Benchmark for OCI with OCI Zero Trust architecture best practices. For details, please see https://github.com/oracle-quickstart/oci-cis-landingzone-quickstart."
 description: "This stack deploys the OCI Zero Trust Landing Zone, a fully operational tenancy that combines the recommendations of CIS Foundations Benchmark for OCI with OCI  Zero Trust architecture best practices. For details, please see <a href=\"https://github.com/oracle-quickstart/oci-cis-landingzone-quickstart\">OCI Core Landing Zone</a>."
 schemaVersion: 1.1.0
-version: "3.0.0"
+version: "0.0.1"
 locale: "en"
 
 # URL of OCI Core Landing Zone logo icon used on Application Information tab.
@@ -54,6 +54,7 @@ variableGroups:
       - "rm_existing_id_domain_iam_admin_group_name"
       - "rm_existing_id_domain_cred_admin_group_name"
       - "rm_existing_id_domain_security_admin_group_name"
+      - "rm_existing_id_domain_ag_admin_group_name"
       - "rm_existing_id_domain_network_admin_group_name"
       - "rm_existing_id_domain_appdev_admin_group_name"
       - "rm_existing_id_domain_database_admin_group_name"
@@ -80,6 +81,7 @@ variableGroups:
       - "existing_id_domain_appdev_fun_dyn_group_name"
       - "existing_id_domain_compute_agent_dyn_group_name"
       - "existing_id_domain_database_kms_dyn_group_name" 
+      - "existing_id_domain_net_fw_app_dyn_group_name"
     visible:
       and:
         - eq:
@@ -98,6 +100,7 @@ variableGroups:
       - "rm_existing_iam_admin_group_name"
       - "rm_existing_cred_admin_group_name"
       - "rm_existing_security_admin_group_name"
+      - "rm_existing_ag_admin_group_name"
       - "rm_existing_network_admin_group_name"
       - "rm_existing_appdev_admin_group_name"
       - "rm_existing_database_admin_group_name"
@@ -125,6 +128,7 @@ variableGroups:
       - "existing_appdev_fun_dyn_group_name"
       - "existing_compute_agent_dyn_group_name"
       - "existing_database_kms_dyn_group_name" 
+      - "existing_net_fw_app_dyn_group_name"
     visible:
       and:
         - eq:
@@ -155,7 +159,7 @@ variableGroups:
       - "tt_vcn1_cidrs"
       - "tt_vcn2_cidrs"
       - "tt_vcn3_cidrs"
-      -  add_oke_vcn1
+      -  "add_oke_vcn1"
       - "oke_vcn1_cidrs"
       - "hub_vcn_cidrs"
 
@@ -167,7 +171,6 @@ variableGroups:
       - "fw_instance_flex_shape_cpu"
       - "fw_instance_boot_volume_size"
       - "fw_instance_public_rsa_key"
-
 
   - title: "Networking - Three Tier VCNs"
     variables:
@@ -295,7 +298,6 @@ variableGroups:
 
   - title: "Networking - OKE VCNs"
     variables:
-      - "add_oke_vcn1"
       - "oke_vcn1_cni_type"
       - "oke_vcn1_name"
       - "oke_vcn1_dns"
@@ -463,10 +465,12 @@ variableGroups:
       - "existing_auditor_group_name"
       - "existing_announcement_reader_group_name"
       - "existing_cost_admin_group_name"
-      - "existing_storage_admin_group_name"     
+      - "existing_storage_admin_group_name"
+      - "extend_landing_zone_to_new_region"
       - "customize_iam"
       - "groups_options"
       - "customize_net"
+      - "display_output"
       - "extend_landing_zone_to_new_region"
       - "existing_service_connector_bucket_vault_compartment_id"
       - "existing_service_connector_bucket_vault_id"
@@ -477,7 +481,11 @@ variableGroups:
       - "cloud_guard_reporting_region"
       - "cloud_guard_risk_level_threshold"
       - "cloud_guard_admin_email_endpoints"
-      - "sz_security_policies"
+      - "sz_security_policies"  
+      - "security_zones_reporting_region"
+      - "existing_ag_admin_group_name"
+      - "lz_provenant_prefix"
+      - "lz_provenant_version"
 
 variables:
   region:
@@ -494,7 +502,6 @@ variables:
       - "1"
       - "2"
     required: true
-    default: "2"
 
   service_label:
     type: string
@@ -525,7 +532,14 @@ variables:
     title: "Define Networking?"
     description: "Check to define networking resources. By default, the Landing Zone does NOT deploy any networks."
     default: true
-    visible: true  
+    visible: false  
+
+  display_output:
+    type: boolean
+    title: "Display Output?"
+    description: "Upon Terraform apply, it displays a concise set of select resource outputs with their OCIDs and names. Uncheck to suppress output display."
+    visible: false
+    default: true   
 
   enclosing_compartment_options:
     type: enum
@@ -604,6 +618,15 @@ variables:
     description: "Enter the existing group to which security management policies will be granted to."
     visible: use_custom_id_domain
       
+  rm_existing_id_domain_ag_admin_group_name:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+    title: "Existing Access Governance Admin Group Names"
+    description: "Enter the existing group(s) to which Access Governance management policies will be granted to."
+    visible: use_custom_id_domain
+
   rm_existing_id_domain_network_admin_group_name:
     type: array
     items:
@@ -700,6 +723,12 @@ variables:
     description: "Existing database dynamic group for database to access keys."
     visible: use_custom_id_domain
 
+  existing_id_domain_net_fw_app_dyn_group_name:
+    type: string
+    title: "Existing Network Firewall Appliance Dynamic Group Name"
+    description: "Existing network firewall appliance dynamic group for reading firewall instances."
+    visible: use_custom_id_domain  
+
   # deploy_id_domain:
   #   type: boolean
   #   title: "Deploy a non-default Identity Domain?"
@@ -778,6 +807,17 @@ variables:
         - ${groups_options}
         - "No, use existing"
       
+  rm_existing_ag_admin_group_name:
+    type: oci:identity:groups:id
+    dependsOn:
+      compartmentId: ${tenancy_ocid}
+    title: "Existing Access Governance admin group name"
+    description: "Existing group to which Access Governance management policies will be granted to."
+    visible:
+      eq:
+        - ${groups_options}
+        - "No, use existing"
+
   rm_existing_appdev_admin_group_name:
     type: oci:identity:groups:id
     dependsOn:
@@ -909,6 +949,17 @@ variables:
         - ${dyn_groups_options}
         - "No, use existing"
 
+  existing_net_fw_app_dyn_group_name:
+    type: oci:identity:dynamicgroups:id
+    dependsOn:
+      compartmentId: ${tenancy_ocid}
+    title: "Existing network firewall appliance dynamic group name"
+    description: "Existing network firewall appliance dynamic group for reading firewall instances."
+    visible:
+      eq:
+        - ${dyn_groups_options}
+        - "No, use existing"      
+
   policies_in_root_compartment:
     type: enum
     title: "CREATE or USE policies in the Root compartment?"
@@ -946,7 +997,6 @@ variables:
         - add_tt_vcn1
     default: "sec-vcn"
 
-
   tt_vcn1_cidrs:
     type: array
     items:
@@ -983,7 +1033,6 @@ variables:
         - customize_net
         - add_tt_vcn1
     default: true
-
   tt_vcn1_routable_vcns:
     type: array
     items:
@@ -1482,7 +1531,6 @@ variables:
         - customize_net
         - add_tt_vcn3
     default: "app1-vcn"
-
   tt_vcn3_cidrs:
     type: array
     items:
@@ -1498,7 +1546,6 @@ variables:
         - customize_net
         - add_tt_vcn3
     default: ["10.2.0.0/20"]
-
   tt_vcn3_dns:
     type: string
     title: "VCN DNS"
@@ -1531,8 +1578,8 @@ variables:
       and:
         - customize_net
         - add_tt_vcn3
-        - tt_vcn3_attach_to_drg  
-    default: ["TT-VCN2", "TT-VCN1"]    
+        - tt_vcn3_attach_to_drg
+    default: ["TT-VCN2", "TT-VCN1"]
 
   customize_tt_vcn3_subnets:
     type: boolean
@@ -1857,7 +1904,7 @@ variables:
 
   exa_vcn1_backup_subnet_dns:
     type: string
-    title: "Client Subnet DNS name"
+    title: "Backup Subnet DNS name"
     description: "Enter the Backup subnet DNS name. Use only letters and numbers, no special characters."
     required: false
     visible:
@@ -1998,7 +2045,7 @@ variables:
 
   exa_vcn2_backup_subnet_dns:
     type: string
-    title: "Client Subnet DNS name"
+    title: "Backup Subnet DNS name"
     description: "Enter the Backup subnet DNS name. Use only letters and numbers, no special characters."
     required: false
     visible:
@@ -2140,7 +2187,7 @@ variables:
 
   exa_vcn3_backup_subnet_dns:
     type: string
-    title: "Client Subnet DNS name"
+    title: "Backup Subnet DNS name"
     description: "Enter the Backup subnet DNS name. Use only letters and numbers, no special characters."
     required: false
     visible:
@@ -2159,7 +2206,6 @@ variables:
     description: "Click to add a VCN configured for OKE deployment, with at least three subnets: service (public by default), workers (private) and API endpoint (private). Additionally, a private subnet for pods deployment is created if the OKE CNI Type is 'Native'. You can also enable an extra private subnet for managing the OKE cluster."
     visible: customize_net  
     default: true
-
   oke_vcn1_cni_type:
     type: enum
     title: "OKE CNI Type"
@@ -2356,8 +2402,8 @@ variables:
 
   oke_vcn1_mgmt_subnet_name:
     type: string
-    title: "Mgmt Subnet Name"
-    description: "The mgmt subnet name."
+    title: "Management Subnet Name"
+    description: "The management subnet name."
     required: false
     visible:
       and:
@@ -2368,7 +2414,7 @@ variables:
 
   oke_vcn1_mgmt_subnet_cidr:
     type: string
-    title: "Mgmt Subnet CIDR block"
+    title: "Management Subnet CIDR block"
     description: "It must be within the VCN CIDR blocks."
     required: false
     visible:
@@ -2380,7 +2426,7 @@ variables:
 
   oke_vcn1_mgmt_subnet_dns:
     type: string
-    title: "Mgmt Subnet DNS name"
+    title: "Management Subnet DNS name"
     description: "Use only letters and numbers, no special characters."
     required: false
     visible:
@@ -2631,8 +2677,8 @@ variables:
 
   oke_vcn2_mgmt_subnet_name:
     type: string
-    title: "Mgmt Subnet Name"
-    description: "The mgmt subnet name."
+    title: "Management Subnet Name"
+    description: "The management subnet name."
     required: false
     visible:
       and:
@@ -2643,7 +2689,7 @@ variables:
 
   oke_vcn2_mgmt_subnet_cidr:
     type: string
-    title: "Mgmt Subnet CIDR block"
+    title: "Management Subnet CIDR block"
     description: "It must be within the VCN CIDR blocks."
     required: false
     visible:
@@ -2655,7 +2701,7 @@ variables:
 
   oke_vcn2_mgmt_subnet_dns:
     type: string
-    title: "Mgmt Subnet DNS name"
+    title: "Management Subnet DNS name"
     description: "Use only letters and numbers, no special characters."
     required: false
     visible:
@@ -2905,8 +2951,8 @@ variables:
 
   oke_vcn3_mgmt_subnet_name:
     type: string
-    title: "Mgmt Subnet Name"
-    description: "The mgmt subnet name."
+    title: "Management Subnet Name"
+    description: "The management subnet name."
     required: false
     visible:
       and:
@@ -2917,7 +2963,7 @@ variables:
 
   oke_vcn3_mgmt_subnet_cidr:
     type: string
-    title: "Mgmt Subnet CIDR block"
+    title: "Management Subnet CIDR block"
     description: "It must be within the VCN CIDR blocks."
     required: false
     visible:
@@ -2929,7 +2975,7 @@ variables:
 
   oke_vcn3_mgmt_subnet_dns:
     type: string
-    title: "Mgmt Subnet DNS name"
+    title: "Management Subnet DNS name"
     description: "Use only letters and numbers, no special characters."
     required: false
     visible:
@@ -2994,7 +3040,7 @@ variables:
       - "Yes, existing DRG as hub"
       - "Yes, new VCN as hub with new DRG"
       - "Yes, new VCN as hub with existing DRG"
-    default: "Yes, new VCN as hub with new DRG"   
+    default: "Yes, new VCN as hub with new DRG"      
 
   existing_drg_ocid:
     type: string
@@ -3042,10 +3088,10 @@ variables:
     items:
       type: string
     uniqueItems: true
-    maxItems: 3
+    maxItems: 1
     minItems: 1
-    title: "Hub VCN list of CIDR Blocks"
-    description: "Enter the CIDR blocks for the Hub VCN."
+    title: "CIDR Block for Hub VCN"
+    description: "Enter the CIDR block for the Hub VCN."
     required: false
     visible: 
       and:
@@ -3083,6 +3129,9 @@ variables:
       - "No"
       - "Palo Alto Networks VM-Series Firewall"
       - "Fortinet FortiGate Firewall"
+      #- "Check Point CloudGuard Firewall"
+      #- "Cisco Secure Firewall"
+      #- "OCI Firewall Service"
     visible: 
       and:
         - customize_net
@@ -3216,25 +3265,26 @@ variables:
             - eq:
               - ${hub_vcn_deploy_firewall_option}
               - "OCI Firewall Service"
+
   fw_instance_public_rsa_key:
-  type: string
-  title: "Firewall Instance public RSA Key"
-  description: "Enter a Public RSA Key to Login to Compute Instance."
-  required: true
-  visible: 
-    and:
-      - customize_net
-      - or:
-        - eq:
-          - ${hub_deployment_option}
-          - "Yes, new VCN as hub with new DRG"
-        - eq:
-          - ${hub_deployment_option}
-          - "Yes, new VCN as hub with existing DRG"
-      - not: 
-        - eq:
-          - ${hub_vcn_deploy_firewall_option}
-          - "No"
+    type: string
+    title: "Firewall Instance public RSA Key"
+    description: "Enter a Public RSA Key to Login to Compute Instance."
+    required: true
+    visible: 
+      and:
+        - customize_net
+        - or:
+          - eq:
+            - ${hub_deployment_option}
+            - "Yes, new VCN as hub with new DRG"
+          - eq:
+            - ${hub_deployment_option}
+            - "Yes, new VCN as hub with existing DRG"
+        - not: 
+          - eq:
+            - ${hub_vcn_deploy_firewall_option}
+            - "No"
 
   hub_vcn_north_south_entry_point_ocid:
     type: string
@@ -3740,7 +3790,7 @@ variables:
     title: Enable Security Zones
     description: "Determines if Security Zones are enabled in Landing Zone compartments. When set to true, the Security Zone is enabled for the enclosing compartment. If no enclosing compartment is used, then the Security Zone is not enabled."
     default: true
-  
+
   security_zones_reporting_region:
     type: string
     title: Security Zones Reporting Region
@@ -3756,9 +3806,10 @@ variables:
     items:
       type: string
     uniqueItems: true
-    title: Security Zone policies
-    description: "List of Security Zones Policy OCIDs to add to security zone recipe. (Type a Security Zone policy OCID and hit enter to enter multiple values). To get a Security Zone policy OCID use the oci cli:  oci cloud-guard security-policy-collection list-security-policies --compartment-id your-tenancy-ocid"
-    visible: 
+    title: Security Zones Policies
+    description: "Additional Security Zones Policy OCIDs to add to security zone recipe (The default policies are added based on CIS level).Type a Security Zone policy OCID and hit enter to enter multiple values.To get a Security Zone policy OCID use the oci cli:  osecurity-policy-collection list-security-policies --compartment-id <tenancy-ocid>."
+    required: false
+    visible:
       and:
         - ${enable_security_zones}
 
@@ -3885,7 +3936,7 @@ variables:
     type: boolean
     title: "Enable Vulnerability Scanning?"
     description: "Whether Vulnerability Scanning should be enabled. If checked, a scanning recipe is enabled and scanning targets are enabled for each Landing Zone compartment."
-    default:  true
+    default: true
   
   vss_scan_schedule:
     type: enum
@@ -4015,3 +4066,64 @@ variables:
     required: false
     visible: create_budget
     description: "List of email addresses for budget alerts. (Type an email address and hit enter to enter multiple values)"
+
+outputs:
+  release:
+    type: string
+    title: OCI Core Landing Zone Release
+
+  region:
+    type: string
+    title: Region
+
+  service_label:
+    type: string
+    title: Service Label
+
+  cis_level:
+    type: string
+    title: CIS Profile Level  
+
+  compartments:
+    type: json
+    title: Compartments
+
+  vcns:
+    type: json
+    title: Virtual Cloud Networks (VCNs)
+
+  subnets:
+    type: json
+    title: VCN Subnets  
+
+  network_security_groups:
+    type: json
+    title: Network Security Groups (NSGs)  
+
+  dynamic_routing_gateways:
+    type: json
+    title: Dynamic Routing Gateways (DRGs)  
+
+  nlb_private_ip_addresses:
+    type: json
+    title: Network Load Balancers (NLB) Private IP Addresses     
+    
+outputGroups:
+  - title: Environment
+    outputs:
+      - ${release}
+      - ${region}
+      - ${service_label}
+      - ${cis_level}
+
+  - title: IAM
+    outputs:
+      - ${compartments}
+
+  - title: Networking
+    outputs:
+      - ${vcns}
+      - ${subnets}
+      - ${network_security_groups}
+      - ${dynamic_routing_gateways}
+      - ${nlb_private_ip_addresses}
