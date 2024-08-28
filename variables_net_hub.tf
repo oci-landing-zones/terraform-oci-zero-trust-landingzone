@@ -48,7 +48,7 @@ variable "fw_instance_name_prefix" {
 
 variable "fw_instance_shape" {
   type    = string
-  default = "VM.Optimized3.Flex"
+  default = "VM.Standard.E4.Flex"
 }
 
 variable "fw_instance_flex_shape_memory" {
@@ -58,7 +58,7 @@ variable "fw_instance_flex_shape_memory" {
 
 variable "fw_instance_flex_shape_cpu" {
   type    = number
-  default = 2
+  default = 4
 }
 
 variable "fw_instance_boot_volume_size" {
