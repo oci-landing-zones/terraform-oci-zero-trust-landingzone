@@ -16,8 +16,8 @@ variable "existing_enclosing_compartment_ocid" {
   description = "The enclosing compartment OCID where Landing Zone compartments will be created. If not provided and use_enclosing_compartment is true, an enclosing compartment is created under the root compartment."
 }
 variable "deploy_exainfra_cmp" {
-  type    = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Whether a separate compartment for Exadata Cloud Infrastructure is deployed."
 }
 

@@ -16,7 +16,7 @@ variable "private_key_password" {
 #-------------------------------------------------------
 variable "region" {
   description = "The region where resources are deployed."
-  type = string
+  type        = string
 }
 variable "service_label" {
   description = "A unique label that gets prepended to all resources deployed by the Landing Zone. Max length: 15 characters."
@@ -46,18 +46,18 @@ variable "customize_net" {
   default     = false
 }
 variable "display_output" {
-  description = "Whether to display a concise set of select resource outputs with their OCIDs and names." 
+  description = "Whether to display a concise set of select resource outputs with their OCIDs and names."
   type        = bool
   default     = true
 }
 variable "lz_provenant_prefix" {
-  description   = "The provenant landing zone prefix or code that identifies the client of this Landing Zone. This information goes into a freeform tag applied to all deployed resources."
-  type          = string
-  default       = "core"
+  description = "The provenant landing zone prefix or code that identifies the client of this Landing Zone. This information goes into a freeform tag applied to all deployed resources."
+  type        = string
+  default     = "core"
   validation {
     condition     = length(regexall("^[A-Za-z][A-Za-z0-9]{1,4}$", var.lz_provenant_prefix)) > 0
     error_message = "Validation failed for lz_provenant_prefix: value must contain alphanumeric characters only, starting with a letter up to a maximum of 5 characters."
-  }  
+  }
 }
 variable "lz_provenant_version" {
   description = "The provenant landing zone version. This information goes into a freeform tag applied to all deployed resources."
