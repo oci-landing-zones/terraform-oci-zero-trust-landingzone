@@ -1,4 +1,4 @@
-
+customize_net = true
 
 # Security VCN Parameters
 add_tt_vcn1 = true

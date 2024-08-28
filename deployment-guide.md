@@ -397,7 +397,7 @@ Within the root module folder, provide variable values in the existing *vars.tfv
 Next, execute:
 
 	> terraform init
-	> terraform plan -var-file="vars-input.tfvars" -out plan.out
+	> terraform plan -var-file="vars.tfvars" -out plan.out
 	> terraform apply plan.out
 
 Alternatively, after providing the variable values in *vars.tfvars*, rename it to *terraform.tfvars* and execute:	
@@ -468,7 +468,7 @@ Using OCI Console, navigate to Resource Manager service page and create a stack 
 1. Select **My Configuration** option as the origin of the Terraform configuration.
 2. In the **Stack Configuration** area, select the **.Zip file** option and upload the .zip file downloaded in the previous step.
 
-![Folder Stack](images/ZipStack_1.png)
+![Folder Stack](images/ztCreateStack.png)
 
 Alternatively, you can simply click the button below to supply the zip file directly from GitHub without downloading it:
 
@@ -479,11 +479,37 @@ Alternatively, you can simply click the button below to supply the zip file dire
 3. In **Working Directory**, make sure the root folder is selected.
 4. In **Name**, give the stack a name or accept the default.
 5. In **Create in Compartment** dropdown, select the compartment to store the Stack.
-6. In **Terraform Version** dropdown, **make sure to select 0.13.x at least. Lower Terraform versions are not supported**.
+6. In **Terraform Version** dropdown, **make sure to select 0.15.x at least. Lower Terraform versions are not supported**.
 
-![Folder Stack](images/ZipStack_2.png)
+![Folder Stack](images/ztCreateStack.png)
 
 Following the Stack creation wizard, the subsequent step prompts for variables values. Please see the [Config Module Input Variables](VARIABLES.md#config_input_variables) for the variables description. 
+
+Following variables are provided from the RMS UI and should be reviewed and tweaked accordingly: 
+
+**General**
+
+- **Region**: Region where to deploy the Zero Trust Landing Zone into
+- **CIS Level**: The CIS level that you want the Landing Zone to adhere to. Keep in mind that setting this value to 2 will result in deployment of a vault which might incurr cost! 
+- **Service Label**: A unique label that will be used as a prefix in front of all created resources
+
+![General Variables](images/ztVar1.png)
+
+**Networking**
+
+- **Security Network CIDR Block**: The CIDR block used for the security VCN
+- **Shared Services CIDR Block**: The CIDR block used for the shared services VCN
+- **Application CIDR Block**: The CIDR block used for the application VCN
+- **Add OKE VCN**: Enabling this option will add an OKE VCN so you can start deploying OKE related workloads 
+- **OKE CIDR Block**: The CIDR block for the OKE VCN
+- **Hub & Spoke CIDR block**: The CIDR block used for the Hub & Spoke VCN
+
+![Network Variables](images/ztVar2.png)
+
+**Firewall**
+
+- **Deploy Firewall?**: Select the type of firewall you want to deploy
+
 
 Some variables, as the one highlighted in the screen capture below, are defaulted in the configuration's variables.tf file and should be reviewed and reassigned values as needed.
 

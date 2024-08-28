@@ -174,7 +174,6 @@ variableGroups:
 
   - title: "Networking - Three Tier VCNs"
     variables:
-      - "add_tt_vcn1"
       - "tt_vcn1_name"
       - "tt_vcn1_dns"
       - "tt_vcn1_attach_to_drg"
@@ -376,7 +375,6 @@ variableGroups:
       - "existing_drg_ocid"
       - "hub_vcn_name"
       - "hub_vcn_dns"
-      - "hub_vcn_deploy_firewall_option"
       - "fw_instance_name_prefix"
       - "hub_vcn_north_south_entry_point_ocid"
       - "hub_vcn_east_west_entry_point_ocid"
@@ -469,7 +467,6 @@ variableGroups:
       - "extend_landing_zone_to_new_region"
       - "customize_iam"
       - "groups_options"
-      - "customize_net"
       - "display_output"
       - "extend_landing_zone_to_new_region"
       - "existing_service_connector_bucket_vault_compartment_id"
@@ -486,6 +483,7 @@ variableGroups:
       - "existing_ag_admin_group_name"
       - "lz_provenant_prefix"
       - "lz_provenant_version"
+      - "add_tt_vcn1"
 
 variables:
   region:
@@ -502,6 +500,7 @@ variables:
       - "1"
       - "2"
     required: true
+    default: 2
 
   service_label:
     type: string
@@ -3270,7 +3269,7 @@ variables:
     type: string
     title: "Firewall Instance public RSA Key"
     description: "Enter a Public RSA Key to Login to Compute Instance."
-    required: true
+    required: false
     visible: 
       and:
         - customize_net

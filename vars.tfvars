@@ -14,7 +14,7 @@ private_key_password = ""
 # General Parameters
 region = "us-phoenix-1"
 service_label = "ztlz"
-cis_level = 2
+cis_level = 1
 
 # Security VCN Parameters
 add_tt_vcn1 = true
@@ -50,7 +50,8 @@ hub_vcn_name = "zt-hub-vcn"
 hub_vcn_dns = ""
 hub_vcn_cidrs = ["192.168.0.0/26"]
 customize_hub_vcn_subnets = false
-hub_vcn_deploy_firewall_option = "Fortinet FortiGate Firewall"
+#hub_vcn_deploy_firewall_option = "Fortinet FortiGate Firewall"
+hub_vcn_deploy_firewall_option = "No"
 fw_instance_shape = 10
 fw_instance_flex_shape_memory = 16
 fw_instance_flex_shape_cpu = 2
@@ -59,7 +60,7 @@ fw_instance_public_rsa_key = "key"
 
 #OKE VCN Parameters
 
-add_oke_vcn1 = true
+add_oke_vcn1 = false
 oke_vcn1_cni_type = "Native"
 oke_vcn1_name = "app2-vcn"
 oke_vcn1_cidrs = ["10.3.0.0/16"]
@@ -68,7 +69,7 @@ oke_vcn1_attach_to_drg = true
 oke_vcn1_routable_vcns = ["TT-VCN-2","TT-VCN-1"]
 
 # Cloud Guard Parameters
-enable_cloud_guard = true
+enable_cloud_guard = false
 enable_service_connector = true
 activate_service_connector = false
 service_connector_target_kind = "streaming"
