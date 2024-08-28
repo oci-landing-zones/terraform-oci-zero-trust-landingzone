@@ -143,6 +143,11 @@ module "zero-trust-landing-zone" {
   tt_vcn3_bastion_subnet_allowed_cidrs          = var.tt_vcn3_bastion_subnet_allowed_cidrs
   tt_vcn3_bastion_is_access_via_public_endpoint = var.tt_vcn3_bastion_is_access_via_public_endpoint
   fw_instance_public_rsa_key                    = var.fw_instance_public_rsa_key
+  fw_instance_name_prefix                       = var.fw_instance_name_prefix
+  fw_instance_shape                             = var.fw_instance_shape
+  fw_instance_flex_shape_memory                 = var.fw_instance_flex_shape_memory
+  fw_instance_flex_shape_cpu                    = var.fw_instance_flex_shape_cpu
+  fw_instance_boot_volume_size                  = var.fw_instance_boot_volume_size
 
   # SECURITY #
   enable_security_zones             = var.enable_security_zones
