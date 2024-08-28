@@ -52,9 +52,9 @@ hub_vcn_cidrs             = ["192.168.0.0/26"]
 customize_hub_vcn_subnets = false
 #hub_vcn_deploy_firewall_option = "Fortinet FortiGate Firewall"
 hub_vcn_deploy_firewall_option = "No"
-fw_instance_shape              = 10
+fw_instance_shape              = "VM.Standard.E4.Flex"
 fw_instance_flex_shape_memory  = 16
-fw_instance_flex_shape_cpu     = 2
+fw_instance_flex_shape_cpu     = 4
 fw_instance_boot_volume_size   = 20
 fw_instance_public_rsa_key     = "key"
 
