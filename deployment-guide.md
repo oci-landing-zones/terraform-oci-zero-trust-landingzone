@@ -462,8 +462,6 @@ RMS manages state and supports locking, so there is no risk of more than one use
 ### Stack from Zip File
 Download this repository as a .zip file, by expanding the Code button in the repository home page and choosing the "Download ZIP" option.
 
-![Zip Download](images/ZipDownload.png)
-
 Using OCI Console, navigate to Resource Manager service page and create a stack based on a .zip file. In the **Create Stack** page:
 1. Select **My Configuration** option as the origin of the Terraform configuration.
 2. In the **Stack Configuration** area, select the **.Zip file** option and upload the .zip file downloaded in the previous step.
@@ -509,14 +507,41 @@ Following variables are provided from the RMS UI and should be reviewed and twea
 **Firewall**
 
 - **Deploy Firewall?**: Select the type of firewall you want to deploy
+- **Firewall instance Shape**: The shape of the compute instance where the firewall will be deployed
+- **Firwall Amount of Memory**: Amount of RAM memory to allocate to the compute instance.
+- **Firewall Number of OCPUs**: The amount of OCPUs used for the compute instance
+- **Firewall boot volume size**: the size of the boot volume used for the firewall
+- **Firewall instance public RSA Key**: The public RSA key from your private key that would allow you to SSH into the compute instance for the firewall
 
 
-Some variables, as the one highlighted in the screen capture below, are defaulted in the configuration's variables.tf file and should be reviewed and reassigned values as needed.
+![Firewall Variables](images/ztVar3.png)
 
-![Folder Stack](images/ZipStack_3.png)
+**Events and Notifications**
+
+- **Network Admin Email Endpoints**: A list of email addresses that will receive Network Admin alerts.
+- **Security Admin Email Endpoints**: A list of email addresses that will receive Security Admin alerts.
+
+
+![Events and Notifications](images/ztVar4.png)
+
+**Cloud Guard**
+
+- **Enable Cloud Guard Service**: Enable this checkbox if cloud guard hasn't been enabled in your tenancy. If it's already enabled, this checkbox needs to be disabled. 
+- **Enable Security Zones**: Determines if Security Zones are enabled in Landing Zone compartments. When set to true, the Security Zone is enabled for the enclosing compartment. If no enclosing compartment is used, then the Security Zone is not enabled.
+
+
+![Events and Notifications](images/ztVar4.png)
+
+**Cost Management**
+
+- **Create Default Budget**: If checked, it will create default budgets for the deployed Landing Zone so you can track cost
+- **Percentage of Budgets**: The threshold for triggering the alert expressed as a percentage of the monthly forecast spend.
+- **Monthly Budget Amount**: The amount in US$ of the budget expresses as a whole number
+- **Budget Alert Email Endpoints**: A list of email addresses that will receive the budget alerts.
+
+
+![Cost Management](images/ztVar5.png)
 
 Once variable values are provided, click Next, review stack values and create the stack. 
 
 In the Stack page use the appropriate buttons to plan/apply/destroy your stack.
-
-![Run Stack](images/RunStack.png)
