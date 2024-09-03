@@ -500,7 +500,7 @@ variables:
       - "1"
       - "2"
     required: true
-    default: 2
+    default: 1
 
   service_label:
     type: string
