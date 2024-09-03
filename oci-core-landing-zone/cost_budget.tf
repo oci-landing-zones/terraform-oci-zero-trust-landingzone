@@ -14,7 +14,7 @@ locals {
 
 module "lz_budgets" {
   count                 = var.extend_landing_zone_to_new_region == false && var.create_budget ? 1 : 0
-  source                = "github.com/oci-landing-zones/terraform-oci-modules-governance//budgets?ref=release-0.1.4"
+  source                = "github.com/oci-landing-zones/terraform-oci-modules-governance//budgets?ref=v0.1.4"
   tenancy_ocid          = var.tenancy_ocid
   budgets_configuration = local.budgets_configuration
 }
@@ -36,10 +36,10 @@ locals {
   compartment_based_budget = {
     COMPARTMENT-BASED-BUDGET = {
       name : local.custom_budget_display_name != null ? local.custom_budget_display_name : "${var.service_label}-main-budget"
-      description : local.use_enclosing_compartment == true ? "Tracks spending from the enclosing compartment level and down" : "Tracks spending across the tenancy"
+      description : local.enclosing_compartment_id != var.tenancy_ocid ? "Tracks spending from the enclosing compartment level and down" : "Tracks spending across the tenancy"
       target : {
         type : "COMPARTMENT"
-        values : local.use_enclosing_compartment ? [local.enclosing_compartment_id] : [var.tenancy_ocid]
+        values : local.enclosing_compartment_id != var.tenancy_ocid ? [local.enclosing_compartment_id] : [var.tenancy_ocid]
       }
       amount : var.budget_amount
       defined_tags  = local.cost_management_defined_tags
