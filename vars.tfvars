@@ -1,13 +1,16 @@
+# Copyright (c) 2021 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
 #If cloud guard is enabled, deploy security zones 
 # Expose SSH public key in firewall instance
 
 
 # Provider Identity parameters 
 
-tenancy_ocid         = "ocid1.tenancy.oc1..aaaaaaaahbsqqoq6hngruus5z4e3zclij32obawvlsxsrz4culbvq5k5p2ia"
-user_ocid            = "ocid1.user.oc1..aaaaaaaa2zpc5lhuv5icre2j7wnh25rsozsnbvmdtv5vvzo6r3ao5nfrpafa"
-fingerprint          = "0d:84:3d:d2:d9:8e:cc:1f:d2:bd:00:57:25:6c:18:2e"
-private_key_path     = "C:\\Users\\Yannick\\Downloads\\yannick.ongena@oracle.com_2024-08-22T11_17_02.201Z.pem"
+tenancy_ocid         = "ocid1.tenancy.oc1.."
+user_ocid            = "ocid1.user.oc1.."
+fingerprint          = ""
+private_key_path     = "path_to_key"
 private_key_password = ""
 
 
