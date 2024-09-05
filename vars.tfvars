@@ -94,5 +94,5 @@ vss_agent_cis_benchmark_settings_scan_level = "MEDIUM"
 vss_enable_file_scan                        = false
 create_budget                               = false
 
-network_admin_email_endpoints  = ["foo@bar.com"]
-security_admin_email_endpoints = ["foo@bar.com"]
+network_admin_email_endpoints  = ["example@email.com"]
+security_admin_email_endpoints = ["example@email.com"]
