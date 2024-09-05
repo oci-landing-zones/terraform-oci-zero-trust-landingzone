@@ -1,4 +1,4 @@
-# Copyright (c) 2021 Oracle and/or its affiliates.
+# Copyright (c) 2024 Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
 #If cloud guard is enabled, deploy security zones 
@@ -94,5 +94,5 @@ vss_agent_cis_benchmark_settings_scan_level = "MEDIUM"
 vss_enable_file_scan                        = false
 create_budget                               = false
 
-network_admin_email_endpoints  = ["yannick.ongena@oracle.com"]
-security_admin_email_endpoints = ["yannick.ongena@oracle.com"]
+network_admin_email_endpoints  = ["foo@bar.com"]
+security_admin_email_endpoints = ["foo@bar.com"]
