@@ -54,19 +54,19 @@ Variable Name | Description | Required | Default Value
 **customize_tt_vcn3_subnets** | Customize the subnet for the Application VCN | No | False
 
 ### <a name="networking_variables"></a>Networking - Hub & Spoke
-Variable Name | Description | Required | Default Value
---------------|-------------|----------|--------------
-**hub_deployment_option** | Type of Hub & Spoke deployment | Yes | "Yes, new VCN as hub with new DRG"
-**hub_vcn_name** | Name for the the Hub & Spoke VCN | Yes | "zt-hub-vcn"
-**hub_vcn_dns** | DNS name for the hub & spoke VCN | No | ""
-**hub_vcn_cidrs** | CIDR range for the Hub & Spoke VCN | Yes | ["192.168.0.0/26"]
-**customize_hub_vcn_subnets** | Customize the Hub & Spoke subnets | No | False
-**hub_vcn_deploy_firewall_option** | Firewall option for the Hub & Spoke | "Fortinet FortiGate Firewall"
-**fw_instance_shape** | Compute shape to be used for the firewall deployment | Yes | 10
-**fw_instance_flex_shape_memory** | Memory allocation for the compute instance for the firewall | Yes | 16
-**fw_instance_flex_shape_cpu** | CPU count for the compute instance for the firewall | Yes | 2
-**fw_instance_boot_volume_size** | Boot volume size for the firewall | Yes | 20
-**fw_instance_public_rsa_key** | Firewall Instance public RSA Key | False | ""
+Variable Name | Description                                                                                                                                         | Required | Default Value
+--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|----------|--------------
+**hub_deployment_option** | Type of Hub & Spoke deployment                                                                                                                      | Yes | "Yes, new VCN as hub with new DRG"
+**hub_vcn_name** | Name for the the Hub & Spoke VCN                                                                                                                    | Yes | "zt-hub-vcn"
+**hub_vcn_dns** | DNS name for the hub & spoke VCN                                                                                                                    | No | ""
+**hub_vcn_cidrs** | CIDR range for the Hub & Spoke VCN                                                                                                                  | Yes | ["192.168.0.0/26"]
+**customize_hub_vcn_subnets** | Customize the Hub & Spoke subnets                                                                                                                   | No | False
+**hub_vcn_deploy_firewall_option** | Firewall option for the Hub & Spoke                                                                                                                 | "Fortinet FortiGate Firewall"
+**fw_instance_shape** | Compute shape to be used for the firewall deployment. For Palo Alto, we recommend VM.Standard3.Flex. For Fortinet, we recommend VM.Standard.E4.Flex | Yes | VM.Standard.E4.Flex
+**fw_instance_flex_shape_memory** | Memory allocation for the compute instance for the firewall                                                                                         | Yes | 16
+**fw_instance_flex_shape_cpu** | CPU count for the compute instance for the firewall                                                                                                 | Yes | 4
+**fw_instance_boot_volume_size** | Boot volume size for the firewall                                                                                                                   | Yes | 20
+**fw_instance_public_rsa_key** | Firewall Instance public RSA Key                                                                                                                    | False | ""
 
 ### <a name="networking_variables"></a>Networking - OKE VCN
 Variable Name | Description | Required | Default Value
