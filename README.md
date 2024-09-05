@@ -7,16 +7,25 @@ The Oracle Zero Trust Landing Zone deploys a secure architecture that supports r
 
 ## Table of Contents
 
-1. [Overview](#overview)
-1. [Architecture](#architecture)
+1. [Early Preview Disclaimer](#earlypreviewdisclaimer)
+2. [Overview](#overview)
+3. [Architecture](#architecture)
     - [IAM](#iam)
     - [Networking](#networking)
     - [Monitoring](#monitoring)
     - [Cost Tracking](#cost)
-1. [Requirements](#requirements)  
-1. [Contributing](#contributing)
-1. [License](#license)
-1. [Known Issues](#known-issues)
+4. [Requirements](#requirements)  
+5. [Contributing](#contributing)
+6. [License](#license)
+7. [Known Issues](#known-issues)
+
+## <a name="earlypreviewdisclaimer">Early Preview Disclaimer</a>
+
+This is an early preview version. It is still under development, with on-going testing and validation. As such, it may contain bugs, incomplete features, and unexpected behavior. This is NOT intended for production use.
+
+This preview enables early access for OCI customers to explore the revamped, standardized Landing Zone framework and new templates, including the Core landing Zone for base tenancy provisioning and Zero Trust landing zone which is built on the Core.
+
+The modules that comprise the new landing zone framework are an evolution of landing zone modules previously published under the oracle-quickstart GitHub organization. We invite you to explore the framework and submit any feature requests, comments or questions via GitHub comments. You can subscribe to be notified once the framework is released in general availability at which point it would be supported by Oracle.
 
 ## <a name="overview">Overview</a>
 
