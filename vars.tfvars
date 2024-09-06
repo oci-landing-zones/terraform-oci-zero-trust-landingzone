@@ -7,10 +7,10 @@
 
 # Provider Identity parameters 
 
-tenancy_ocid         = "ocid1.tenancy.oc1.."
-user_ocid            = "ocid1.user.oc1.."
-fingerprint          = ""
-private_key_path     = "path_to_key"
+tenancy_ocid = ""
+user_ocid = ""
+fingerprint = ""
+private_key_path = ""
 private_key_password = ""
 
 
