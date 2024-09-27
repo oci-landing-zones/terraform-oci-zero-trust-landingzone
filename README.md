@@ -153,7 +153,7 @@ See [LICENSE](./LICENSE) for more details.
 
 * Cloud Guard is managed from the root compartment; if it is already enabled, disable Cloud Guard activation during Landing Zone deployment.
 
-* For any firewall instances you deploy, memory should be increased from the default value of 56 to 64 or greater.
+* For any firewall instances you deploy, memory should be increased from the default value to 64 or greater.
 
 ### Post-Deployment Considerations
 
