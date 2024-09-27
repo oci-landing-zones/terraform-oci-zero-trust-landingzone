@@ -1,13 +1,13 @@
 [![Deploy_To_OCI](images/DeployToOCI.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oci-landing-zones/terraform-oci-zero-trust-landingzone/archive/refs/heads/main.zip)<br>
 *If you are logged into your OCI tenancy in the Commercial Realm (OC1), the button will take you directly to OCI Resource Manager where you can proceed to deploy. If you are not logged, the button takes you to Oracle Cloud initial page where you must enter your tenancy name and login to OCI.*
 
-# OCI Zero Trust Landing Zone (Early Preview)
+# OCI Zero Trust Landing Zone (Initial Release)
 
 The Oracle Zero Trust Landing Zone deploys a secure architecture that supports requirements described by NIST, CISA, and NCSC. In addition to the Center for Internet Security (CIS) Benchmarks, this Zero Trust Landing Zone will implement several additional services including Zero Trust Packet Routing (ZPR), Access Governance, and the ability to plug in your preferred 3rd party Zero Trust Network Access (ZTNA) solution (e.g., Fortinet, Palo Alto, Cisco, etc.). Please review the guides below to get started with the OCI Zero Trust Landing Zone. This Zero Trust Landing Zone solution has options to deploy services that are available in the Commercial Realm (OC1). The button below will take you directly to the OCI Resource Manager console where you can start the deployment. Please note that some services are not available in all realms, so you will need to review the Implementation Guide and Configuration Guide before deploying.
 
 ## Table of Contents
 
-1. [Early Preview Disclaimer](#earlypreviewdisclaimer)
+1. [Initial Release Disclaimer](#initialreleasedisclaimer)
 2. [Overview](#overview)
 3. [Architecture](#architecture)
     - [IAM](#iam)
@@ -19,11 +19,11 @@ The Oracle Zero Trust Landing Zone deploys a secure architecture that supports r
 6. [License](#license)
 7. [Known Issues](#known-issues)
 
-## <a name="earlypreviewdisclaimer">Early Preview Disclaimer</a>
+## <a name="initialreleasedisclaimer">Initial Release Disclaimer</a>
 
-This is an early preview version. It is still under development, with on-going testing and validation. As such, it may contain bugs, incomplete features, and unexpected behavior. This is NOT intended for production use.
+This is the first release following the early preview version. It is still under development, with on-going testing and validation. As such, it may contain bugs, incomplete features, and unexpected behavior. This is NOT intended for production use.  Please see [Known Issues](#known-issues) for successful deployment.
 
-This preview enables early access for OCI customers to explore the revamped, standardized Landing Zone framework and new templates, including the Core landing Zone for base tenancy provisioning and Zero Trust landing zone which is built on the Core.
+This initial release is for OCI customers to explore the revamped, standardized Landing Zone framework and new templates, including the Core landing Zone for base tenancy provisioning and Zero Trust landing zone which is built on the Core.
 
 The modules that comprise the new landing zone framework are an evolution of landing zone modules previously published under the oracle-quickstart GitHub organization. We invite you to explore the framework and submit any feature requests, comments or questions via GitHub comments. You can subscribe to be notified once the framework is released in general availability at which point it would be supported by Oracle.
 
@@ -148,3 +148,200 @@ See [LICENSE](./LICENSE) for more details.
 
 * **Support for free tier tenancies**
     * Deploying in a free tier tenancy is not supported at this time as there are some services that are not available. If you want to try the Landing Zone please upgrade your account to a pay-go account. 
+
+### Pre-Deployment Considerations
+
+* Cloud Guard is managed from the root compartment; if it is already enabled, disable Cloud Guard activation during Landing Zone deployment.
+
+* For any firewall instances you deploy, memory should be increased from the default value of 56 to 64 or greater.
+
+### Post-Deployment Considerations
+
+* The routing VCN (hub) is the nexus for all other Zero Trust Landing Zone VCNs (spokes).  Remove any gateways from all VCNs except the routing hub VCN (zt-hub-vcn).
+	* Terminate IGW in app1-vcn
+	* Terminate NGW in app1-vcn
+	* Terminate SGW in app1-vcn
+
+* Default route tables are not used; all routing is managed by VCN-specific route tables with associated NSGs.  For a proper Hub and Spoke network topology, fix route tables and align NSGs with route tables.
+
+	Security VCN (sec-vcn):
+	
+		web-subnet-route-table
+		- remove all destinations except 0.0.0.0/0
+		app-subnet-route-table
+		- remove all destinations except 0.0.0.0/0
+		db-subnet-route-table
+		- remove all destinations except 0.0.0.0/0
+
+		lbr-nsg
+		- remove all ingress except 0.0.0.0/0 (TCP/443)
+		- remove all egress except
+		      hub-vcn-indoor-subnet 192.168.0.32/28 (All/All)
+		      app-nsg (TCP/80)
+		app-nsg
+		- remove all ingress except lbr-nsg (TCP/80)
+		- remove all egress except
+		      hub-vcn-indoor-subnet 192.168.0.32/28 (All/All)
+		      db-nsg (TCP/1521-1522)
+		db-nsg
+		- remove all ingress except app-nsg (TCP/1521-1522)
+		- remove all egress except
+		      hub-vcn-indoor-subnet 192.168.0.32/28 (All/All)
+	
+	
+	Shared Services VCN (share-services-vcn):
+	
+		web-subnet-rtable
+		- remove all destinations except 192.168.0.0/26
+		app-subnet-rtable
+		- remove all destinations except 192.168.0.0/26
+		db-subnet-rtable
+		- remove all destinations except 192.168.0.0/26
+		
+		lbr-nsg
+		- remove all ingress except 192.168.0.0/26 (TCP/443)
+		- remove all egress except
+		      hub-vcn-indoor-subnet 192.168.0.32/28 (All/All)
+		      app-nsg (TCP/80)
+		app-nsg
+		- remove all ingress except lbr-nsg (TCP/80)
+		- remove all egress except
+		      hub-vcn-indoor-subnet 192.168.0.32/28 (All/All)
+		      db-nsg (TCP/1521-1522)
+		db-nsg
+		- remove all ingress except app-nsg (TCP/1521-1522)
+		- remove all egress except
+		      hub-vcn-indoor-subnet 192.168.0.32/28 (All/All)
+	
+	
+	Application VCN - three tier (app1-vcn):
+	
+		web-subnet-rtable
+		- remove all destinations except 0.0.0.0/0
+		app-subnet-rtable
+		- remove all destinations except 0.0.0.0/0
+		db-subnet-rtable
+		- remove all destinations except 0.0.0.0/0
+		
+		lbr-nsg
+		- remove all ingress except 0.0.0.0/0 (TCP/443)
+		- remove all egress except
+		      hub-vcn-indoor-subnet 192.168.0.32/28 (All/All)
+		      app-nsg (TCP/80)
+		app-nsg
+		- remove all ingress except lbr-nsg (TCP/80)
+		- remove all egress except
+		      hub-vcn-indoor-subnet 192.168.0.32/28 (All/All)
+		      db-nsg (TCP/1521-1522)
+		db-nsg
+		- remove all ingress except app-nsg (TCP/1521-1522)
+		- remove all egress except
+		      hub-vcn-indoor-subnet 192.168.0.32/28 (All/All)
+	
+	
+	Application VCN - OKE (app2-vcn):
+	
+		api-subnet-route-table
+		- keep destination 0.0.0.0/0
+		pods-subnet-route-table
+		- remove all destinations except 0.0.0.0/0
+		services-subnet-route-table
+		- keep destination 0.0.0.0/0
+		workers-subnet-route-table
+		- remove all destinations except 0.0.0.0/0
+		
+		api-nsg
+		-  keep ingress
+		      api-nsg (TCP/6443)
+		      pods-nsg (TCP/6443)
+		      pods-nsg (TCP/12250)
+		      workers-nsg (TCP/6443)
+		      workers-nsg (TCP/10250)
+		      workers-nsg (TCP/12250)
+		      workers-nsg (ICMP)
+		      bastion 10.3.48.0/20 (TCP/6443)
+		-  remove egress SGW
+		-  keep egress
+		      api-nsg (TCP/6443)
+		      pods-nsg (All/All)
+		      workers-nsg (TCP/10250)
+		      workers-nsg (TCP/12250)
+		      workers-nsg (ICMP)
+		pods-nsg
+		-  remove all ingress except
+		      api-nsg (All/All)
+		      pods-nsg (All/All)
+		      workers-nsg (All/All)
+		-  remove all egress except
+		      api-nsg (TCP/6443)
+		      api-nsg (TCP/12250)
+		      pods-nsg (All/All)
+		      OPTIONAL: 0.0.0.0/0 (TCP/All)
+		services-nsg
+		-  keep ingress except 0.0.0.0/0 (All/All)
+		-  remove all egress except
+		      workers-nsg (TCP/10256)
+		      workers-nsg (TCP/30000-32767)
+		      workers-nsg (ICMP)
+		workers-nsg
+		-  remove all ingress except
+		      api-nsg (All/All)
+		      services-nsg (TCP/10256)
+		      services-nsg (TCP/30000-32767)
+		      workers-nsg (All/All)
+		      bastion 10.3.3.0/28 (TCP/22)
+		      0.0.0.0/0 (ICMP)
+		-  remove all egress except
+		      api-nsg (TCP/6443)
+		      api-nsg (TCP/10250)
+		      api-nsg (TCP/12250)
+		      pods-nsg (All/All)
+		      workers-nsg (All/All)
+		      0.0.0.0/0 (ICMP)
+		      OPTIONAL: 0.0.0.0/0 (TCP/All)
+	
+	
+	Hub and Spoke Routing VCN (zt-hub-vcn):
+	
+		web-subnet-route-table
+		- keep IGW
+		outdoor-subnet-route-table
+		- keep NGW
+		- keep SGW
+		indoor-subnet-route-table
+		- add 10.0.0.0/20, 10.1.0.0/20, 10.2.0.0/20, 10.3.0.0./16
+		- keep SGW
+		mgmt-subnet-route-table
+		- keep NGW
+		- keep SGW
+	
+		outdoor-nlb-nsg
+		- keep ingress 0.0.0.0/0 (TCP/443)
+		- keep egress outdoor-fw-nsg (TCP/All)
+		outdoor-fw-nsg
+		- keep ingress outdoor-nlb-nsg (TCP/80)
+		- keep egress 0.0.0.0/0 (TCP/All)
+		indoor-fw-nsg
+		- keep ingress indoor-nlb-nsg (TCP/80)
+		- keep egress 0.0.0.0/0 (TCP/All)
+		indoor-nlb-nsg
+		- keep ingress 0.0.0.0/0 (TCP/80)
+		- keep egress indoor-fw-nsg (TCP/All)
+		jump-host-nsg
+		- no ingress
+		- keep egress mgmt-nsg (TCP/22)
+		mgmt-nsg
+		- keep ingress
+		      jump-host-nsg (TCP/22)
+		      bastion service 192.168.0.48/28 (TCP/22)
+		      bastion service 192.168.0.48/28 (TCP/443)
+		- no egress
+
+
+### On-Premises Connectivity
+
+* Configuration of Fast Connnect, routing, NSGs, etc. for specific customer on-premises facilities is beyond the scpoe of Zero Trust Landing Zone.  Customer connctivity needs to be added manually, as a post-deployment exercize.
+
+### Identity Domain bug
+
+* Details???
