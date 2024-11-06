@@ -6,7 +6,7 @@
 #-------------------------------------------------------
 variable "hub_deployment_option" {
   type    = string
-  default = "No"
+  default = "VCN or on-premises connectivity routing through DMZ VCN with Network Virtual Appliance (DRG and DMZ VCN will be created)"
 }
 variable "existing_drg_ocid" {
   type    = string
@@ -45,7 +45,7 @@ variable "net_appliance_name_prefix" {
   default = "firewall-instance"
 }
 
-variable "fw_instance_shape" {
+variable "net_appliance_shape" {
   type    = string
   default = "VM.Standard.E4.Flex"
 }
@@ -60,7 +60,7 @@ variable "net_appliance_flex_shape_cpu" {
   default = 4
 }
 
-variable "fw_instance_boot_volume_size" {
+variable "net_appliance_boot_volume_size" {
   type    = number
   default = 60
 }

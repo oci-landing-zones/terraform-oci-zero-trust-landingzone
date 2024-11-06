@@ -45,11 +45,6 @@ variable "oke_vcn1_api_subnet_name" {
   default = null
 }
 
-variable "oke_vcn1_api_subnet_dns" {
-  type    = string
-  default = null
-}
-
 variable "oke_vcn1_workers_subnet_cidr" {
   type    = string
   default = null
@@ -60,22 +55,12 @@ variable "oke_vcn1_workers_subnet_name" {
   default = null
 }
 
-variable "oke_vcn1_workers_subnet_dns" {
-  type    = string
-  default = null
-}
-
 variable "oke_vcn1_services_subnet_cidr" {
   type    = string
   default = null
 }
 
 variable "oke_vcn1_services_subnet_name" {
-  type    = string
-  default = null
-}
-
-variable "oke_vcn1_services_subnet_dns" {
   type    = string
   default = null
 }
@@ -95,16 +80,7 @@ variable "oke_vcn1_mgmt_subnet_name" {
   default = null
 }
 
-variable "oke_vcn1_mgmt_subnet_dns" {
-  type    = string
-  default = null
-}
-
 variable "oke_vcn1_pods_subnet_name" {
-  type    = string
-  default = null
-}
-variable "oke_vcn1_pods_subnet_dns" {
   type    = string
   default = null
 }
@@ -137,11 +113,6 @@ variable "oke_vcn2_cidrs" {
   default = ["10.4.0.0/16"]
 }
 
-variable "oke_vcn2_dns" {
-  type    = string
-  default = null
-}
-
 variable "oke_vcn2_attach_to_drg" {
   type    = bool
   default = false
@@ -162,11 +133,6 @@ variable "oke_vcn2_api_subnet_name" {
   default = null
 }
 
-variable "oke_vcn2_api_subnet_dns" {
-  type    = string
-  default = null
-}
-
 variable "oke_vcn2_workers_subnet_cidr" {
   type    = string
   default = null
@@ -177,22 +143,12 @@ variable "oke_vcn2_workers_subnet_name" {
   default = null
 }
 
-variable "oke_vcn2_workers_subnet_dns" {
-  type    = string
-  default = null
-}
-
 variable "oke_vcn2_services_subnet_cidr" {
   type    = string
   default = null
 }
 
 variable "oke_vcn2_services_subnet_name" {
-  type    = string
-  default = null
-}
-
-variable "oke_vcn2_services_subnet_dns" {
   type    = string
   default = null
 }
@@ -212,16 +168,7 @@ variable "oke_vcn2_mgmt_subnet_name" {
   default = null
 }
 
-variable "oke_vcn2_mgmt_subnet_dns" {
-  type    = string
-  default = null
-}
-
 variable "oke_vcn2_pods_subnet_name" {
-  type    = string
-  default = null
-}
-variable "oke_vcn2_pods_subnet_dns" {
   type    = string
   default = null
 }
@@ -256,11 +203,6 @@ variable "oke_vcn3_cidrs" {
   default = ["10.5.0.0/16"]
 }
 
-variable "oke_vcn3_dns" {
-  type    = string
-  default = null
-}
-
 variable "oke_vcn3_attach_to_drg" {
   type    = bool
   default = false
@@ -281,11 +223,6 @@ variable "oke_vcn3_api_subnet_name" {
   default = null
 }
 
-variable "oke_vcn3_api_subnet_dns" {
-  type    = string
-  default = null
-}
-
 variable "oke_vcn3_workers_subnet_cidr" {
   type    = string
   default = null
@@ -296,22 +233,12 @@ variable "oke_vcn3_workers_subnet_name" {
   default = null
 }
 
-variable "oke_vcn3_workers_subnet_dns" {
-  type    = string
-  default = null
-}
-
 variable "oke_vcn3_services_subnet_cidr" {
   type    = string
   default = null
 }
 
 variable "oke_vcn3_services_subnet_name" {
-  type    = string
-  default = null
-}
-
-variable "oke_vcn3_services_subnet_dns" {
   type    = string
   default = null
 }
@@ -331,16 +258,7 @@ variable "oke_vcn3_mgmt_subnet_name" {
   default = null
 }
 
-variable "oke_vcn3_mgmt_subnet_dns" {
-  type    = string
-  default = null
-}
-
 variable "oke_vcn3_pods_subnet_name" {
-  type    = string
-  default = null
-}
-variable "oke_vcn3_pods_subnet_dns" {
   type    = string
   default = null
 }

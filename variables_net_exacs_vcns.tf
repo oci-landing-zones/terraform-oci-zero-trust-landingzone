@@ -23,11 +23,6 @@ variable "exa_vcn1_attach_to_drg" {
   default = false
 }
 
-variable "exa_vcn1_dns" {
-  type    = string
-  default = null
-}
-
 variable "exa_vcn1_client_subnet_cidr" {
   type    = string
   default = null
@@ -36,19 +31,11 @@ variable "exa_vcn1_client_subnet_name" {
   type    = string
   default = null
 }
-variable "exa_vcn1_client_subnet_dns" {
-  type    = string
-  default = null
-}
 variable "exa_vcn1_backup_subnet_cidr" {
   type    = string
   default = null
 }
 variable "exa_vcn1_backup_subnet_name" {
-  type    = string
-  default = null
-}
-variable "exa_vcn1_backup_subnet_dns" {
   type    = string
   default = null
 }
@@ -81,10 +68,6 @@ variable "exa_vcn2_name" {
   default = ""
   type    = string
 }
-variable "exa_vcn2_dns" {
-  default = ""
-  type    = string
-}
 variable "exa_vcn2_client_subnet_cidr" {
   type    = string
   default = null
@@ -93,19 +76,11 @@ variable "exa_vcn2_client_subnet_name" {
   type    = string
   default = null
 }
-variable "exa_vcn2_client_subnet_dns" {
-  type    = string
-  default = null
-}
 variable "exa_vcn2_backup_subnet_cidr" {
   type    = string
   default = null
 }
 variable "exa_vcn2_backup_subnet_name" {
-  type    = string
-  default = null
-}
-variable "exa_vcn2_backup_subnet_dns" {
   type    = string
   default = null
 }
@@ -137,10 +112,6 @@ variable "exa_vcn3_name" {
   type    = string
   default = ""
 }
-variable "exa_vcn3_dns" {
-  type    = string
-  default = ""
-}
 variable "exa_vcn3_client_subnet_cidr" {
   type    = string
   default = null
@@ -149,19 +120,11 @@ variable "exa_vcn3_client_subnet_name" {
   type    = string
   default = null
 }
-variable "exa_vcn3_client_subnet_dns" {
-  type    = string
-  default = null
-}
 variable "exa_vcn3_backup_subnet_cidr" {
   type    = string
   default = null
 }
 variable "exa_vcn3_backup_subnet_name" {
-  type    = string
-  default = null
-}
-variable "exa_vcn3_backup_subnet_dns" {
   type    = string
   default = null
 }
