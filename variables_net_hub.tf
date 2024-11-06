@@ -32,19 +32,15 @@ variable "hub_vcn_cidrs" {
   type    = list(string)
   default = ["192.168.0.0/26"]
 }
-variable "hub_vcn_dns" {
-  type    = string
-  default = null
-}
 # ------------------------------------------------------
 # ----- Networking - Firewall settings
 #-------------------------------------------------------
-variable "hub_vcn_deploy_firewall_option" {
+variable "hub_vcn_deploy_net_appliance_option" {
   type    = string
   default = "No"
 }
 
-variable "fw_instance_name_prefix" {
+variable "net_appliance_name_prefix" {
   type    = string
   default = "firewall-instance"
 }
@@ -54,12 +50,12 @@ variable "fw_instance_shape" {
   default = "VM.Standard.E4.Flex"
 }
 
-variable "fw_instance_flex_shape_memory" {
+variable "net_appliance_flex_shape_memory" {
   type    = number
   default = 56
 }
 
-variable "fw_instance_flex_shape_cpu" {
+variable "net_appliance_flex_shape_cpu" {
   type    = number
   default = 4
 }
@@ -69,7 +65,7 @@ variable "fw_instance_boot_volume_size" {
   default = 60
 }
 
-variable "fw_instance_public_rsa_key" {
+variable "net_appliance_public_rsa_key" {
   type    = string
   default = null
 }
@@ -87,10 +83,6 @@ variable "hub_vcn_web_subnet_name" {
   default = null
 }
 variable "hub_vcn_web_subnet_cidr" {
-  type    = string
-  default = null
-}
-variable "hub_vcn_web_subnet_dns" {
   type    = string
   default = null
 }
@@ -113,10 +105,6 @@ variable "hub_vcn_mgmt_subnet_cidr" {
   type    = string
   default = null
 }
-variable "hub_vcn_mgmt_subnet_dns" {
-  type    = string
-  default = null
-}
 variable "hub_vcn_mgmt_subnet_external_allowed_cidrs_for_http" {
   type    = list(string)
   default = []
@@ -136,10 +124,6 @@ variable "hub_vcn_outdoor_subnet_cidr" {
   type    = string
   default = null
 }
-variable "hub_vcn_outdoor_subnet_dns" {
-  type    = string
-  default = null
-}
 # -------------------------------------------
 # ----- Networking - Hub Indoor Subnet
 #--------------------------------------------
@@ -148,10 +132,6 @@ variable "hub_vcn_indoor_subnet_name" {
   default = null
 }
 variable "hub_vcn_indoor_subnet_cidr" {
-  type    = string
-  default = null
-}
-variable "hub_vcn_indoor_subnet_dns" {
   type    = string
   default = null
 }

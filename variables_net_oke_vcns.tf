@@ -25,11 +25,6 @@ variable "oke_vcn1_cidrs" {
   default = ["10.3.0.0/16"]
 }
 
-variable "oke_vcn1_dns" {
-  type    = string
-  default = null
-}
-
 variable "oke_vcn1_attach_to_drg" {
   type    = bool
   default = false

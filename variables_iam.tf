@@ -32,7 +32,7 @@ variable "use_custom_id_domain" {
   type    = bool
   default = false
 }
-variable "custom_id_domain_name" {
+variable "custom_id_domain_ocid" {
   type    = string
   default = null
 }

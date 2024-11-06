@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
 module "zero-trust-landing-zone" {
-  source = "github.com/oci-landing-zones/terraform-oci-core-landingzone?ref=v0.0.1-ep"
+  source = "github.com/oci-landing-zones/terraform-oci-core-landingzone"
 
   # ZT Identification
   lz_provenant_prefix  = "ZTLZ"
@@ -19,7 +19,7 @@ module "zero-trust-landing-zone" {
   cis_level                         = var.cis_level
   extend_landing_zone_to_new_region = var.extend_landing_zone_to_new_region
   customize_iam                     = var.customize_iam
-  customize_net                     = var.customize_net
+  define_net                        = var.define_net
   display_output                    = var.display_output
 
 
@@ -30,7 +30,7 @@ module "zero-trust-landing-zone" {
   existing_enclosing_compartment_ocid                  = var.existing_enclosing_compartment_ocid
   deploy_exainfra_cmp                                  = var.deploy_exainfra_cmp
   use_custom_id_domain                                 = var.use_custom_id_domain
-  custom_id_domain_name                                = var.custom_id_domain_name
+  custom_id_domain_ocid                                = var.custom_id_domain_ocid
   rm_existing_id_domain_iam_admin_group_name           = var.rm_existing_id_domain_iam_admin_group_name
   rm_existing_id_domain_cred_admin_group_name          = var.rm_existing_id_domain_cred_admin_group_name
   rm_existing_id_domain_security_admin_group_name      = var.rm_existing_id_domain_security_admin_group_name
@@ -80,20 +80,16 @@ module "zero-trust-landing-zone" {
   add_tt_vcn1                                   = var.add_tt_vcn1
   tt_vcn1_name                                  = var.tt_vcn1_name
   tt_vcn1_cidrs                                 = var.tt_vcn1_cidrs
-  tt_vcn1_dns                                   = var.tt_vcn1_dns
   tt_vcn1_attach_to_drg                         = var.tt_vcn1_attach_to_drg
   tt_vcn1_routable_vcns                         = var.tt_vcn1_routable_vcns
   customize_tt_vcn1_subnets                     = var.customize_tt_vcn1_subnets
   tt_vcn1_web_subnet_name                       = var.tt_vcn1_web_subnet_name
   tt_vcn1_web_subnet_cidr                       = var.tt_vcn1_web_subnet_cidr
-  tt_vcn1_web_subnet_dns                        = var.tt_vcn1_web_subnet_dns
   tt_vcn1_web_subnet_is_private                 = var.tt_vcn1_web_subnet_is_private
   tt_vcn1_app_subnet_name                       = var.tt_vcn1_app_subnet_name
   tt_vcn1_app_subnet_cidr                       = var.tt_vcn1_app_subnet_cidr
-  tt_vcn1_app_subnet_dns                        = var.tt_vcn1_app_subnet_dns
   tt_vcn1_db_subnet_name                        = var.tt_vcn1_db_subnet_name
   tt_vcn1_db_subnet_cidr                        = var.tt_vcn1_db_subnet_cidr
-  tt_vcn1_db_subnet_dns                         = var.tt_vcn1_db_subnet_dns
   deploy_tt_vcn1_bastion_subnet                 = var.deploy_tt_vcn1_bastion_subnet
   tt_vcn1_bastion_subnet_name                   = var.tt_vcn1_bastion_subnet_name
   tt_vcn1_bastion_subnet_cidr                   = var.tt_vcn1_bastion_subnet_cidr
@@ -103,20 +99,16 @@ module "zero-trust-landing-zone" {
   add_tt_vcn2                                   = var.add_tt_vcn2
   tt_vcn2_name                                  = var.tt_vcn2_name
   tt_vcn2_cidrs                                 = var.tt_vcn2_cidrs
-  tt_vcn2_dns                                   = var.tt_vcn2_dns
   tt_vcn2_attach_to_drg                         = var.tt_vcn2_attach_to_drg
   tt_vcn2_routable_vcns                         = var.tt_vcn2_routable_vcns
   customize_tt_vcn2_subnets                     = var.customize_tt_vcn2_subnets
   tt_vcn2_web_subnet_name                       = var.tt_vcn2_web_subnet_name
   tt_vcn2_web_subnet_cidr                       = var.tt_vcn2_web_subnet_cidr
-  tt_vcn2_web_subnet_dns                        = var.tt_vcn2_web_subnet_dns
   tt_vcn2_web_subnet_is_private                 = var.tt_vcn2_web_subnet_is_private
   tt_vcn2_app_subnet_name                       = var.tt_vcn2_app_subnet_name
   tt_vcn2_app_subnet_cidr                       = var.tt_vcn2_app_subnet_cidr
-  tt_vcn2_app_subnet_dns                        = var.tt_vcn2_app_subnet_dns
   tt_vcn2_db_subnet_name                        = var.tt_vcn2_db_subnet_name
   tt_vcn2_db_subnet_cidr                        = var.tt_vcn2_db_subnet_cidr
-  tt_vcn2_db_subnet_dns                         = var.tt_vcn2_db_subnet_dns
   deploy_tt_vcn2_bastion_subnet                 = var.deploy_tt_vcn2_bastion_subnet
   tt_vcn2_bastion_subnet_name                   = var.tt_vcn2_bastion_subnet_name
   tt_vcn2_bastion_subnet_cidr                   = var.tt_vcn2_bastion_subnet_cidr
@@ -126,31 +118,27 @@ module "zero-trust-landing-zone" {
   add_tt_vcn3                                   = var.add_tt_vcn3
   tt_vcn3_name                                  = var.tt_vcn3_name
   tt_vcn3_cidrs                                 = var.tt_vcn3_cidrs
-  tt_vcn3_dns                                   = var.tt_vcn3_dns
   tt_vcn3_attach_to_drg                         = var.tt_vcn3_attach_to_drg
   tt_vcn3_routable_vcns                         = var.tt_vcn3_routable_vcns
   customize_tt_vcn3_subnets                     = var.customize_tt_vcn3_subnets
   tt_vcn3_web_subnet_name                       = var.tt_vcn3_web_subnet_name
   tt_vcn3_web_subnet_cidr                       = var.tt_vcn3_web_subnet_cidr
-  tt_vcn3_web_subnet_dns                        = var.tt_vcn3_web_subnet_dns
   tt_vcn3_web_subnet_is_private                 = var.tt_vcn3_web_subnet_is_private
   tt_vcn3_app_subnet_name                       = var.tt_vcn3_app_subnet_name
   tt_vcn3_app_subnet_cidr                       = var.tt_vcn3_app_subnet_cidr
-  tt_vcn3_app_subnet_dns                        = var.tt_vcn3_app_subnet_dns
   tt_vcn3_db_subnet_name                        = var.tt_vcn3_db_subnet_name
   tt_vcn3_db_subnet_cidr                        = var.tt_vcn3_db_subnet_cidr
-  tt_vcn3_db_subnet_dns                         = var.tt_vcn3_db_subnet_dns
   deploy_tt_vcn3_bastion_subnet                 = var.deploy_tt_vcn3_bastion_subnet
   tt_vcn3_bastion_subnet_name                   = var.tt_vcn3_bastion_subnet_name
   tt_vcn3_bastion_subnet_cidr                   = var.tt_vcn3_bastion_subnet_cidr
   tt_vcn3_bastion_subnet_allowed_cidrs          = var.tt_vcn3_bastion_subnet_allowed_cidrs
   tt_vcn3_bastion_is_access_via_public_endpoint = var.tt_vcn3_bastion_is_access_via_public_endpoint
-  fw_instance_public_rsa_key                    = var.fw_instance_public_rsa_key
-  fw_instance_name_prefix                       = var.fw_instance_name_prefix
-  fw_instance_shape                             = var.fw_instance_shape
-  fw_instance_flex_shape_memory                 = var.fw_instance_flex_shape_memory
-  fw_instance_flex_shape_cpu                    = var.fw_instance_flex_shape_cpu
-  fw_instance_boot_volume_size                  = var.fw_instance_boot_volume_size
+  net_appliance_public_rsa_key                  = var.net_appliance_public_rsa_key
+  net_appliance_name_prefix                     = var.net_appliance_name_prefix
+  net_appliance_shape                           = var.net_appliance_shape
+  net_appliance_flex_shape_memory               = var.net_appliance_flex_shape_memory
+  net_appliance_flex_shape_cpu                  = var.net_appliance_flex_shape_cpu
+  net_appliance_boot_volume_size                = var.net_appliance_boot_volume_size
 
   # SECURITY #
   enable_security_zones             = var.enable_security_zones
@@ -190,25 +178,20 @@ module "zero-trust-landing-zone" {
   # HUB VCN #
   hub_deployment_option                              = var.hub_deployment_option
   hub_vcn_name                                       = var.hub_vcn_name
-  hub_vcn_dns                                        = var.hub_vcn_dns
   hub_vcn_cidrs                                      = var.hub_vcn_cidrs
   customize_hub_vcn_subnets                          = var.customize_hub_vcn_subnets
   hub_vcn_web_subnet_name                            = var.hub_vcn_web_subnet_name
   hub_vcn_web_subnet_cidr                            = var.hub_vcn_web_subnet_cidr
-  hub_vcn_web_subnet_dns                             = var.hub_vcn_web_subnet_dns
   hub_vcn_web_subnet_is_private                      = var.hub_vcn_web_subnet_is_private
   hub_vcn_web_subnet_jump_host_allowed_cidrs         = var.hub_vcn_web_subnet_jump_host_allowed_cidrs
   hub_vcn_mgmt_subnet_name                           = var.hub_vcn_mgmt_subnet_name
   hub_vcn_mgmt_subnet_cidr                           = var.hub_vcn_mgmt_subnet_cidr
-  hub_vcn_mgmt_subnet_dns                            = var.hub_vcn_mgmt_subnet_dns
   hub_vcn_mgmt_subnet_external_allowed_cidrs_for_ssh = var.hub_vcn_mgmt_subnet_external_allowed_cidrs_for_ssh
   hub_vcn_outdoor_subnet_name                        = var.hub_vcn_outdoor_subnet_name
   hub_vcn_outdoor_subnet_cidr                        = var.hub_vcn_outdoor_subnet_cidr
-  hub_vcn_outdoor_subnet_dns                         = var.hub_vcn_outdoor_subnet_dns
   hub_vcn_indoor_subnet_name                         = var.hub_vcn_indoor_subnet_name
   hub_vcn_indoor_subnet_cidr                         = var.hub_vcn_indoor_subnet_cidr
-  hub_vcn_indoor_subnet_dns                          = var.hub_vcn_indoor_subnet_dns
-  hub_vcn_deploy_firewall_option                     = var.hub_vcn_deploy_firewall_option
+  hub_vcn_deploy_net_appliance_option                = var.hub_vcn_deploy_net_appliance_option
   hub_vcn_north_south_entry_point_ocid               = var.hub_vcn_north_south_entry_point_ocid
   hub_vcn_east_west_entry_point_ocid                 = var.hub_vcn_east_west_entry_point_ocid
 
@@ -217,7 +200,6 @@ module "zero-trust-landing-zone" {
   oke_vcn1_cni_type      = var.oke_vcn1_cni_type
   oke_vcn1_name          = var.oke_vcn1_name
   oke_vcn1_cidrs         = var.oke_vcn1_cidrs
-  oke_vcn1_dns           = var.oke_vcn1_dns
   oke_vcn1_attach_to_drg = var.oke_vcn1_attach_to_drg
   oke_vcn1_routable_vcns = var.oke_vcn1_routable_vcns
 
