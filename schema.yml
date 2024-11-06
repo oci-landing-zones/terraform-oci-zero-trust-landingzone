@@ -194,7 +194,7 @@ variableGroups:
       - "hub_vcn_indoor_subnet_dns"
     visible: false
 
-  - title: "Networking"
+  - title: "Networking Configuration"
     variables:
       - "tt_vcn1_cidrs"
       - "tt_vcn2_cidrs"
@@ -203,7 +203,7 @@ variableGroups:
       - "oke_vcn1_cidrs"
       - "hub_vcn_cidrs"
 
-  - title: "Firewall"
+  - title: "Firewall Configuration"
     variables:
       - "hub_vcn_deploy_net_appliance_option"
       - "net_appliance_image_ocid"
@@ -2913,7 +2913,7 @@ variables:
       #- "Cisco Secure Firewall"
       #- "OCI Firewall Service"
       - "User-Provided Virtual Network Appliance"
-    visible: 
+    visible:
       and:
         - define_net
         - or:
@@ -3597,7 +3597,7 @@ variables:
     type: boolean
     title: Enable Security Zones
     description: "Determines if Security Zones are enabled in Landing Zone compartments. When set to true, the Security Zone is enabled for the enclosing compartment. If no enclosing compartment is used, then the Security Zone is not enabled."
-    default: false
+    default: true
 
   security_zones_reporting_region:
     type: string
