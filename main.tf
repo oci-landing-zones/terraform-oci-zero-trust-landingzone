@@ -139,6 +139,9 @@ module "zero-trust-landing-zone" {
   net_appliance_flex_shape_memory               = var.net_appliance_flex_shape_memory
   net_appliance_flex_shape_cpu                  = var.net_appliance_flex_shape_cpu
   net_appliance_boot_volume_size                = var.net_appliance_boot_volume_size
+  net_appliance_image_ocid                      = var.net_appliance_image_ocid
+  net_palo_alto_version                         = var.net_palo_alto_version
+  net_fortigate_version                         = var.net_fortigate_version
 
   # SECURITY #
   enable_security_zones             = var.enable_security_zones

@@ -42,7 +42,7 @@ variable "hub_vcn_deploy_net_appliance_option" {
 
 variable "net_appliance_name_prefix" {
   type    = string
-  default = "firewall-instance"
+  default = "net-appliance-instance"
 }
 
 variable "net_appliance_shape" {
@@ -73,6 +73,21 @@ variable "net_appliance_public_rsa_key" {
 variable "customize_hub_vcn_subnets" {
   type    = bool
   default = false
+}
+
+variable "net_appliance_image_ocid" {
+  type = string
+  default = null
+}
+
+variable "net_palo_alto_version" {
+  type = string
+  default = "11.1.3"
+}
+
+variable "net_fortigate_version" {
+  type = string
+  default = "7.2.9_(_X64_)"
 }
 
 # -------------------------------------------

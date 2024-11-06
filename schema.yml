@@ -215,8 +215,6 @@ variableGroups:
       - "net_appliance_flex_shape_cpu"
       - "net_appliance_boot_volume_size"
       - "net_appliance_public_rsa_key"
-      - "hub_vcn_north_south_entry_point_ocid"
-      - "hub_vcn_east_west_entry_point_ocid"
 
   - title: "Networking - Three Tier VCNs"
     variables:
