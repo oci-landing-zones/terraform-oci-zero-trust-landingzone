@@ -46,12 +46,12 @@ variable "customize_iam" {
 variable "define_net" {
   description = "Whether networking is defined as part of this Landing Zone. By default, no networking resources are created."
   type        = bool
-  default     = false
+  default     = true
 }
 variable "display_output" {
   description = "Whether to display a concise set of select resource outputs with their OCIDs and names."
   type        = bool
-  default     = true
+  default     = false
 }
 variable "lz_provenant_prefix" {
   description = "The provenant landing zone prefix or code that identifies the client of this Landing Zone. This information goes into a freeform tag applied to all deployed resources."
