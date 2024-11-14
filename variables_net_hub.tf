@@ -47,6 +47,7 @@ variable "net_appliance_name_prefix" {
 
 variable "net_appliance_shape" {
   type    = string
+  default = "VM.Optimized3.Flex"
 }
 
 variable "net_appliance_flex_shape_memory" {

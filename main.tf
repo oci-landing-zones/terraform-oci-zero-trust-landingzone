@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
 module "zero-trust-landing-zone" {
-  source = "github.com/oci-landing-zones/terraform-oci-core-landingzone"
+  source = "./oci-core-landing-zone"
 
   # ZT Identification
   lz_provenant_prefix  = "ZTLZ"
