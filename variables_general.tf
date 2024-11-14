@@ -67,3 +67,14 @@ variable "lz_provenant_version" {
   type        = string
   default     = null
 }
+
+variable "enable_zpr" {
+  default     = false
+  description = "Whether to enable ZPR service."
+  type        = bool
+}
+variable "zpr_namespace_name" {
+  description = "ZPR namespace name."
+  type        = string
+  default     = null
+}

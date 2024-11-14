@@ -21,7 +21,8 @@ module "zero-trust-landing-zone" {
   customize_iam                     = var.customize_iam
   define_net                        = var.define_net
   display_output                    = var.display_output
-
+  enable_zpr                        = var.enable_zpr
+  zpr_namespace_name                = var.zpr_namespace_name
 
 
   # IAM #

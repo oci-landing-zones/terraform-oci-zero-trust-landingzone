@@ -202,6 +202,8 @@ variableGroups:
       - "add_oke_vcn1"
       - "oke_vcn1_cidrs"
       - "hub_vcn_cidrs"
+      - "enable_zpr"
+      - "zpr_namespace_name"
 
   - title: "Firewall Configuration"
     variables:
@@ -509,6 +511,24 @@ variables:
     description: "Check to define networking resources. By default, the Landing Zone does NOT deploy any networks."
     default: true
     visible: false
+
+  # Zero Trust Packet Routing (ZPR)
+  enable_zpr:
+    type: boolean
+    title: "Enable Zero Trust Packet Routing (ZPR)?"
+    description: "If checked, a ZPR namespace, security attributes, and ZPR policies are created. ZPR namespace along with security attributes are created in the enclosing compartment. ZPR policies are created in the Root compartment. For details, please see <a href=\"https://docs.oracle.com/en-us/iaas/Content/zero-trust-packet-routing/overview.htm\">ZPR Overview</a>."
+    default: true
+    required: false
+    visible: true
+
+  zpr_namespace_name:
+    type: string
+    title: "Name of ZPR Namespace"
+    description: "Enter the name of ZPR namespace. By default, it is set to the value given to \"Service Label\" field, concatenated with the \"-zpr\" suffix."
+    required: false
+    visible:
+      and:
+        - enable_zpr
 
   display_output:
     type: boolean
