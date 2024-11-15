@@ -32,7 +32,6 @@ customize_hub_vcn_subnets = false
 oke_vcn1_cni_type      = "Native"
 oke_vcn1_name          = "app2-vcn"
 oke_vcn1_cidrs         = ["10.3.0.0/16"]
-oke_vcn1_attach_to_drg = true
 
 # Cloud Guard Parameters
 enable_service_connector      = true
