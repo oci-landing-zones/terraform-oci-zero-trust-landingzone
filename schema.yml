@@ -206,7 +206,7 @@ variableGroups:
       - "enable_zpr"
       - "zpr_namespace_name"
 
-  - title: "Firewall Configuration"
+  - title: "Network Appliance Configuration"
     variables:
       - "hub_vcn_deploy_net_appliance_option"
       - "net_appliance_image_ocid"
