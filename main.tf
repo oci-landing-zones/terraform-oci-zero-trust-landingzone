@@ -3,7 +3,7 @@
 
 # -------------------------------------------------------------------------------------
 # -- This configuration deploys the most basic CIS compliant landing zone.
-# -- No VCN is deployed.
+# -- A hub and a three tier VCN are deployed.
 # -- See other templates for other CIS compliant landing zones with custom settings.
 # -- 1. Rename this file to main.tf.
 # -- 2. Provide/review the variable assignments below.
