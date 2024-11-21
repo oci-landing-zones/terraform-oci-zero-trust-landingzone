@@ -2,10 +2,11 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
 # -------------------------------------------------------------------------------------
-# -- This configuration deploys the most basic CIS compliant landing zone.
+# -- This configuration deploys the Zero Trust Landing Zone.
 # -- A hub and a three tier VCN are deployed.
 # -- See other templates for other CIS compliant landing zones with custom settings.
-# -- 1. Rename this file to main.tf.
+# -- 1. Uncomment the section of Network Appliance Option: Fortinet FortiGate Firewall (line 47-53) if deploying Fortinet Firewall,
+#       Uncomment the section of Network Appliance Option: Palo Alto Networks VM-Series Firewall (line 59-65) if deploying Palo Alto Firewall
 # -- 2. Provide/review the variable assignments below.
 # -- 3. In this folder, execute the typical Terraform workflow:
 # ----- $ terraform init
@@ -30,7 +31,7 @@ module "zero_trust_landing_zone" {
   # ------------------------------------------------------
   # ----- General
   # ------------------------------------------------------
-  cis_level = 2 # Options: 1, 2
+  cis_level = 1 # Options: 1, 2
 
   # ------------------------------------------------------
   # ----- Hub Deployment Option
@@ -41,17 +42,27 @@ module "zero_trust_landing_zone" {
   hub_deployment = 3
   # existing_drg_ocid = "" # please enter the drg ocid if the hub_deployment = 4
 
-  # ------------------------------------------------------
-  # ----- Network Appliance Option
-  # ------------------------------------------------------
-  hub_vcn_deploy_net_appliance_option = "Fortinet FortiGate Firewall" # Option: "Don't deploy any network appliance at this time", "Palo Alto Networks VM-Series Firewall", "Fortinet FortiGate Firewall"
-  net_fortigate_version               = "7.2.9_(_X64_)"               # Option: "7.4.4_(_X64_)", "7.2.9_(_X64_)"
-  # net_palo_alto_version               = "" # Option: "11.1.3", "11.1.2-h3"
-  net_appliance_flex_shape_memory = 56
-  net_appliance_flex_shape_cpu    = 4
-  net_appliance_boot_volume_size  = 60
-  net_appliance_public_rsa_key    = "" #Enter the Public RSA Key
-  net_appliance_shape             = "VM.Standard.E4.Flex"
+  # -----------------------------------------------------------
+  # ----- Network Appliance Option: Fortinet FortiGate Firewall
+  # -----------------------------------------------------------
+  # hub_vcn_deploy_net_appliance_option = "Fortinet FortiGate Firewall"
+  # net_fortigate_version               = "7.2.9_(_X64_)" # Option: "7.4.4_(_X64_)", "7.2.9_(_X64_)"
+  # net_appliance_flex_shape_memory     = 56
+  # net_appliance_flex_shape_cpu        = 4
+  # net_appliance_boot_volume_size      = 60
+  # net_appliance_public_rsa_key        = "" #Enter the Public RSA Key
+  # net_appliance_shape                 = "VM.Standard.E4.Flex"
+
+  # ---------------------------------------------------------------------
+  # ----- Network Appliance Option: Palo Alto Networks VM-Series Firewall
+  # ---------------------------------------------------------------------
+  # hub_vcn_deploy_net_appliance_option = "Palo Alto Networks VM-Series Firewall"
+  # net_palo_alto_version               = "11.1.3"  # Option: "11.1.2-h3", "11.1.3"
+  # net_appliance_flex_shape_memory     = 56
+  # net_appliance_flex_shape_cpu        = 4
+  # net_appliance_boot_volume_size      = 60
+  # net_appliance_public_rsa_key        = "" #Enter the Public RSA Key
+  # net_appliance_shape                 = "VM.Standard2.4"
 
   # ------------------------------------------------------
   # ----- Networking
