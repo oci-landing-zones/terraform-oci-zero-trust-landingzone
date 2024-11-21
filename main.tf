@@ -11,7 +11,6 @@
 # ----- $ terraform init
 # ----- $ terraform plan
 # ----- $ terraform apply
-# Please read the DEPLOYMENT-GUIDE.md for more variable configuration info.
 # -------------------------------------------------------------------------------------
 
 module "zero_trust_landing_zone" {
@@ -35,11 +34,7 @@ module "zero_trust_landing_zone" {
   # ------------------------------------------------------
   # ----- Hub Deployment Option
   # ------------------------------------------------------
-  # hub_deployment
-  #  - 3: "VCN or on-premises connectivity routing through DMZ VCN with Network Virtual Appliance (DRG and DMZ VCN will be created)"
-  #  - 4: "VCN or on-premises connectivity routed through DMZ VCN with Network Virtual Appliance existing DRG (DMZ VCN will be created and DRG ID required)"
-  hub_deployment = 3
-  # existing_drg_ocid = "" # please enter the drg ocid if the hub_deployment = 4
+  hub_deployment = "VCN or on-premises connectivity routing through DMZ VCN with Network Virtual Appliance (DRG and DMZ VCN will be created)"
 
   # ------------------------------------------------------
   # ----- Network Appliance Option
@@ -50,7 +45,7 @@ module "zero_trust_landing_zone" {
   net_appliance_flex_shape_memory = 56
   net_appliance_flex_shape_cpu    = 4
   net_appliance_boot_volume_size  = 60
-  net_appliance_public_rsa_key    = "" #Enter the Public RSA Key
+  net_appliance_public_rsa_key    = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMffzPTbnVZdf8HWXnCzdWYrCUdYRNPEaqhEOIF3CS7t <yupei.yang@oracle.com>" #Enter the Public RSA Key
   net_appliance_shape             = "VM.Standard.E4.Flex"
 
   # ------------------------------------------------------
@@ -72,13 +67,13 @@ module "zero_trust_landing_zone" {
   # ------------------------------------------------------
   enable_service_connector      = true        # Enables service connector for logging consolidation.
   activate_service_connector    = true        # Activates service connector.
-  service_connector_target_kind = "streaming" # Options: 'streaming', 'objectstorage', 'functions' or 'logginganalytics'.
+  service_connector_target_kind = "streaming" # Sends collected logs to an OCI stream.
 
 
   # ------------------------------------------------------
   # ----- Security
   # ------------------------------------------------------
-  enable_cloud_guard    = true # Set to false if Cloud Guard has already been enabled.
+  enable_cloud_guard    = false # Set to false if Cloud Guard has already been enabled.
   enable_security_zones = true  # Deploys a security zone for this deployment in the enclosing compartment.
   vss_create            = true  # Enables Vulnerability Scanning Service for Compute instances.
 
