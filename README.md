@@ -1,10 +1,13 @@
-[![Deploy_To_OCI](../../images/DeployToOCI.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oci-landing-zones/terraform-oci-core-landingzone/archive/refs/heads/main.zip&zipUrlVariables={"cis_level":"2","hub_deployment":"VCN%20or%20on-premises%20connectivity%20routing%20through%20DMZ%20VCN%20with%20Network%20Virtual%20Appliance%20(DRG%20and%20DMZ%20VCN%20will%20be%20created)","define_net":true,"enable_zpr":true,"add_tt_vcn1":true,"tt_vcn1_attach_to_drg":true,"enable_service_connector":true,"activate_service_connector":true,"service_connector_target_kind":"streaming","enable_security_zones":true,"vss_create":true,"create_budget":true,"enable_cloud_guard":true})
+[![Deploy_To_OCI](../../images/DeployToOCI.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oci-landing-zones/terraform-oci-core-landingzone/archive/refs/heads/main.zip&zipUrlVariables={"cis_level":"1","hub_deployment":"3","define_net":true,"enable_zpr":true,"add_tt_vcn1":true,"tt_vcn1_attach_to_drg":true,"enable_service_connector":true,"activate_service_connector":true,"service_connector_target_kind":"streaming","enable_security_zones":true,"vss_create":true,"create_budget":true,"enable_cloud_guard":true})
 <br>
 *If you are logged into your OCI tenancy in the Commercial Realm (OC1), the button will take you directly to OCI Resource Manager where you can proceed to deploy. If you are not logged, the button takes you to Oracle Cloud initial page where you must enter your tenancy name and login to OCI.*
 
 # OCI Zero Trust Landing Zone
 
-The Oracle Zero Trust Landing Zone deploys a secure architecture that supports requirements described by NIST, CISA, and NCSC. In addition to the Center for Internet Security (CIS) Benchmarks, this Zero Trust Landing Zone will implement several additional services including Zero Trust Packet Routing (ZPR), Access Governance, and the ability to plug in your preferred 3rd party Zero Trust Network Access (ZTNA) solution (e.g., Fortinet, Palo Alto, Cisco, etc.). Please review the guides below to get started with the OCI Zero Trust Landing Zone. This Zero Trust Landing Zone solution has options to deploy services that are available in the Commercial Realm (OC1). The button below will take you directly to the OCI Resource Manager console where you can start the deployment. Please note that some services are not available in all realms, so you will need to review the Implementation Guide and Configuration Guide before deploying.
+The OCI Zero Trust Landing Zone deploys a [Zero Trust](https://www.oracle.com/security/what-is-zero-trust/)
+secure architecture that supports requirements described by NIST, CISA, and NCSC. In addition to the Center for Internet Security (CIS) Benchmarks, this Zero Trust Landing Zone will implement several additional services including Zero Trust Packet Routing (ZPR), Access Governance, and the ability to plug in your preferred third-party Zero Trust Network Access (ZTNA) solution (e.g., Fortinet, Palo Alto Networks, Cisco, Check Point, etc.). See the [Oracle Cloud Infrastructure Blog article](https://blogs.oracle.com/cloud-infrastructure/post/accelerating-zero-trust-journey-on-oci-with-landing-zones) for more details.
+
+Please review the guides below to get started with the OCI Zero Trust Landing Zone. This Zero Trust Landing Zone solution has options to deploy services that are available in the OCI Commercial Realm (OC1). The button below will take you directly to the OCI Resource Manager console where you can start the deployment. Please note that some services are not available in all realms, so you will need to review the [Deployment Guide](./DEPLOYMENT-GUIDE.md) before deploying.
 
 ## Table of Contents
 
@@ -94,7 +97,7 @@ Zero Trust Landing Zone extends events monitoring with operational metrics and a
 
 As mandated by CIS Benchmark, Zero Trust Landing Zone also enables VCN flow logs to all provisioned subnets and Object Storage logging for write operations.
 
-Last but not least, Zero Trust Landing Zone uses OCI Service Connector Hub to consolidate logs from different sources including VCN flow logs and Audit logs. This is extremely helpful when making OCI logs available to 3rd-party SIEM (Security Information and Event Management) or SOAR (Security Orchestration and Response) solutions. OCI Service Connector Hub can aggregate OCI logs in Object Storage, send them to an OCI Stream, or to an OCI Function. By default, the Zero Trust Landing Zone uses Object Storage as the destination.
+Last but not least, Zero Trust Landing Zone uses OCI Service Connector Hub to consolidate logs from different sources including VCN flow logs and Audit logs. This is extremely helpful when making OCI logs available to third-party SIEM (Security Information and Event Management) or SOAR (Security Orchestration and Response) solutions. OCI Service Connector Hub can aggregate OCI logs in Object Storage, send them to an OCI Stream, or to an OCI Function. By default, the Zero Trust Landing Zone uses Object Storage as the destination.
 
 ### <a name="cost">Cost Tracking</a>
 
@@ -106,7 +109,9 @@ After setting the basic foundation with Zero Trust Landing Zone, customers deplo
 
 A SIEM (Security Information and Event Management) solution is a software tool that provides organizations with centralized security monitoring capabilities. They are used to identify, analyze, and respond to potential security threats in real-time or through historical data analysis.
 
-The Zero Trust Landing Zone does not provide a SIEM solution as part of the deployment, however you can bring your own SIEM solution that integrates with OCI logs and events. The Landing Zone uses Events, Streams and Service Connectors so that you can readily configure your SIEM solution for integration with OCI.
+The Zero Trust Landing Zone does not provide a SIEM solution as part of the deployment, however you can bring your own SIEM solution that integrates with OCI logs and events. The landing zone uses Events, Streams and Service Connectors so that you can readily configure your SIEM solution for integration with OCI.
+
+To determine your type of Service Connector target (*service\_connector\_target\_kind*), please review "SIEM Integration" on this [guide](https://github.com/oracle-quickstart/oci-self-service-security-guide/tree/main/1-Logging-Monitoring-and-Alerting).
 
 ## <a name="requirements">Requirements</a>
 
@@ -121,7 +126,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## <a name="license">License</a>
 
-Copyright (c) 2023, Oracle and/or its affiliates.
+Copyright (c) 2024, Oracle and/or its affiliates.
 
 Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
@@ -130,6 +135,10 @@ See [LICENSE](./LICENSE.txt) for more details.
 
 ## <a name="known-issues">Known Issues</a>
 
+* **CIS Level and Firewall Functionality**
+    *  Deploying an optional firewall network appliance in conjunction with the option of CIS Level 2 is not supported at this time.
+       This limitation is due to the requirement of an encrypted boot volume on the network appliance (compute instance).  The suggested workaround is to opt for CIS Level 1 if you intend to use a third-party firewall.
+ 
 * **Terraform Apply Failure 404-NotAuthorizedorNotFound**
     * Terraform CLI or Resource Manager fails to apply with a message similar as this:
     ```

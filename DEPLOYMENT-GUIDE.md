@@ -11,7 +11,6 @@ In this template, a single default three-tier VCN is deployed. Additionally, the
 - A basic [Budget](https://docs.oracle.com/en-us/iaas/Content/Billing/Concepts/budgetsoverview.htm#Budgets_Overview) is created.
 - A Hub & Spoke networking topology, including either Fortinet Fortigate Firewall or Palo Alto Networks VM-Series Firewall. Both configurations are mostly the same, except for the network appliance option (_hub\_vcn\_deploy\_net\_appliance\_option_) and their respective settings (_net\_appliance\_variables_).
 
-
 ## Default Values
 
 This template has the following parameters set:
@@ -19,7 +18,7 @@ This template has the following parameters set:
 | Variable Name | Description | Value | Options |
 |---|---|---|---|
 | service\_label | A unique identifier to prefix the resources | | |
-| cis\_level | Determines CIS OCI Benchmark Level of services deployed by the landing zone: Level 1 is practical and prudent. Level 2 is intended for environments where security is more critical than manageability and usability. Level 2 drives the creation of an OCI Vault, buckets encryption with a customer managed key, write logs for buckets and the usage of specific policies in Security Zones | 2 | Acceptable inputs are "1" or "2" |
+| cis\_level | Determines CIS OCI Benchmark Level of services deployed by the landing zone: Level 1 is practical and prudent. Level 2 is intended for environments where security is more critical than manageability and usability. Level 2 drives the creation of an OCI Vault, buckets encryption with a customer managed key, write logs for buckets and the usage of specific policies in Security Zones | 1 | Acceptable inputs are "1" or "2" |
 | define\_net | Define networking resources - by default, the Zero Trust Landing Zone deploys a three-tier VCN with subnets. See *add\_tt\_vcn1* below. | true | "true" or "false" |
 | hub\_deployment | The hub deployment option. In this case (3), a *new* DRG is deployed to act as the hub in a Hub & Spoke topology. With the other option (4), an existing DRG is used in a Hub & Spoke topology. | 3 | "3" or "4" |
 | hub\_vcn\_deploy\_net\_appliance\_option | Choose one of the available network appliance options for deploying in the Hub VCN. | | "Don't deploy any network appliance at this time", "Palo Alto Networks VM-Series Firewall", "Fortinet FortiGate Firewall" |
@@ -29,8 +28,8 @@ This template has the following parameters set:
 | net\_appliance\_flex\_shape\_cpu | Network Appliance Number of OCPUs for the Selected Flex Shape | 4 | Any integer greater than or equal to 4; costs will incur. |
 | net\_appliance\_boot\_volume\_size | Network Appliance Boot Volume Size | 60 | Any integer greater than or equal to 60; costs will incur. |
 | net\_appliance\_public\_rsa\_key | Network Appliance Instance public SSH Key | Enter Public SSH Key | Valid public SSH key |
-| net\_appliance\_shape | Network Appliance Instance Shape. This depends of your choice of Fortinet or Palo Alto Networks appliances.  For Fortinet, use VM.Standard.E4.Flex; for PAN use VM.Standard2.4. | VM.Standard.E4.Flex | "VM.Standard.E4.Flex" or "VM.Standard2.4" |
-| enable\_zpr | Whether ZPR is enabled as part of this landing zone deployment. Besides enabling the service, Core Landing Zone creates a ZPR namespace with security attributes and associated policies for deployed VCNs. <br><br>**By definition, a Zero Trust Landing Zone MUST employ ZPR.** | true | "true" or "false" |
+| net\_appliance\_shape | Network Appliance Instance Shape. This depends of your choice of Fortinet or Palo Alto Networks appliances.  For Fortinet, use VM.Standard.E4.Flex; for Palo Alto Networks use VM.Standard2.4. | VM.Standard.E4.Flex | "VM.Standard.E4.Flex" or "VM.Standard2.4" |
+| enable\_zpr | Whether ZPR is enabled as part of this landing zone deployment. Besides enabling the service, Core Landing Zone creates a ZPR namespace with security attributes and associated policies for deployed VCNs. <br><br>**By definition, a Zero Trust Landing Zone should deploy ZPR.** | true | "true" or "false" |
 | add\_tt\_vcn1 | Add a three-tier VCN, with three subnets: web (public), application (private) and database (private). An optional subnet (private) for bastion deployment is also available. | true | "true" or "false" |
 | tt\_vcn1\_attach\_to\_drg | When true, attaches three-tier VCN to the Dynamic Routing Gateway | true | "true" or "false" |
 | network\_admin\_email\_endpoints | List of email addresses that receive notifications for networking related events. | ["email.address@example.com"] | Valid email addresses |
@@ -51,7 +50,7 @@ This template can be deployed using OCI Resource Manager Service (RMS) or Terraf
 
 By clicking the button below, you are redirected to an OCI RMS Stack with variables pre-assigned for deployment.
 
-[![Deploy_To_OCI](../../images/DeployToOCI.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oci-landing-zones/terraform-oci-core-landingzone/archive/refs/heads/main.zip&zipUrlVariables={"cis_level":"2","hub_deployment":"VCN%20or%20on-premises%20connectivity%20routing%20through%20DMZ%20VCN%20with%20Network%20Virtual%20Appliance%20(DRG%20and%20DMZ%20VCN%20will%20be%20created)","define_net":true,"enable_zpr":true,"add_tt_vcn1":true,"tt_vcn1_attach_to_drg":true,"enable_service_connector":true,"activate_service_connector":true,"service_connector_target_kind":"streaming","enable_security_zones":true,"vss_create":true,"create_budget":true,"enable_cloud_guard":true})
+[![Deploy_To_OCI](../../images/DeployToOCI.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oci-landing-zones/terraform-oci-core-landingzone/archive/refs/heads/main.zip&zipUrlVariables={"cis_level":"1","hub_deployment":"3","define_net":true,"enable_zpr":true,"add_tt_vcn1":true,"tt_vcn1_attach_to_drg":true,"enable_service_connector":true,"activate_service_connector":true,"service_connector_target_kind":"streaming","enable_security_zones":true,"vss_create":true,"create_budget":true,"enable_cloud_guard":true})
 
 You are required to review/adjust the following variable settings:
 
