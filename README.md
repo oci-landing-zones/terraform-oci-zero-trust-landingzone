@@ -98,13 +98,13 @@ Last but not least, Zero Trust Landing Zone uses OCI Service Connector Hub to co
 
 ### <a name="cost">Cost Tracking</a>
 
-The resources created by the Zero Trust Landing Zone are free of charge and cost nothing to our customers. If there's a possibility of cost, Zero Trust Landing Zone does not enable the resource by default leaving it as an option. This is the case of Service Connector Hub for instance as customers may incur costs if large amounts of logs are sent to an Object Storage bucket. For this reason, Service Connector Hub has to be explicitly enabled by Zero Trust Landing Zone users.
+Most resources created by the Zero Trust Landing Zone are free of charge. If there's a possibility of cost, Zero Trust Landing Zone does not enable the resource by default leaving it as an option. This is the case of Service Connector Hub and Network Appliance resources as customers may incur costs if those are enabled. For this reason, Service Connector Hub and Network Appliance have to be explicitly enabled by Zero Trust Landing Zone users.
 
 After setting the basic foundation with Zero Trust Landing Zone, customers deploy their workloads by creating cost-consuming resources like Compute instances, databases, and storage. To avoid surprises with costs, Zero Trust Landing Zone allows for the creation of a basic budget that notifies a provided email address if a forecasted spending reaches a specific threshold. If an enclosing compartment is deployed, the budget is created at that level, otherwise it is created at the Root compartment.
 
 ## <a name="SIEM">SIEM</a>
 
-A SIEM solution is a software tool that provides organizations with centralized security monitoring capabilities. They are used to identify, analyze, and respond to potential security threats in real-time or through historical data analysis. 
+A SIEM (Security Information and Event Management) solution is a software tool that provides organizations with centralized security monitoring capabilities. They are used to identify, analyze, and respond to potential security threats in real-time or through historical data analysis. 
 
 The Zero Trust Landing Zone does not provide a SIEM solution as part of the deployment, however you can bring your own SIEM solution that integrates with OCI logs and events. The Landing Zone uses Events, Streams and Service Connectors so that you can readily configure your SIEM solution for integration with OCI. 
 
