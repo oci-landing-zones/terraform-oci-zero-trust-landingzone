@@ -137,8 +137,8 @@ See [LICENSE](./LICENSE.txt) for more details.
 
 * **CIS Level and Firewall Functionality**
     *  Deploying an optional firewall network appliance in conjunction with the option of CIS Level 2 is not supported at this time.
-       This limitation is due to the requirement of an encrypted boot volume on the network appliance (compute instance).  The suggested workaround is to opt for CIS Level 1 if you intend to use a third-party firewall.
- 
+       This limitation is due to the requirement imposed by Security Zone for an encrypted boot volume with a customer managed key on the network appliance. The suggested workaround is to opt for CIS level 1 if you intend to use a third party firewall. This is going to be addressed in the next release.
+
 * **Terraform Apply Failure 404-NotAuthorizedorNotFound**
     * Terraform CLI or Resource Manager fails to apply with a message similar as this:
     ```
