@@ -5,10 +5,12 @@
 # -- This configuration deploys the Zero Trust Landing Zone.
 # -- A hub and a three tier VCN are deployed.
 # -- See other templates for other CIS compliant landing zones with custom settings.
-# -- 1. Uncomment the section of Network Appliance Option: Fortinet FortiGate Firewall (line 47-53) if deploying Fortinet Firewall,
-#       Uncomment the section of Network Appliance Option: Palo Alto Networks VM-Series Firewall (line 59-65) if deploying Palo Alto Firewall
-# -- 2. Provide/review the variable assignments below.
-# -- 3. In this folder, execute the typical Terraform workflow:
+# -- 1. Provide/review the variable assignments below.
+#       * Environment variables
+#       * Notification variables
+#       * Uncomment the section of Network Appliance Option: Fortinet FortiGate Firewall (line 47-53) if deploying Fortinet Firewall,
+#       * Uncomment the section of Network Appliance Option: Palo Alto Networks VM-Series Firewall (line 59-65) if deploying Palo Alto Firewall
+# -- 2. In this folder, execute the typical Terraform workflow:
 # ----- $ terraform init
 # ----- $ terraform plan
 # ----- $ terraform apply
@@ -20,13 +22,13 @@ module "zero_trust_landing_zone" {
   # ------------------------------------------------------
   # ----- Environment
   # ------------------------------------------------------
-  tenancy_ocid         = "" # Replace with your tenancy OCID.
-  user_ocid            = "" # Replace with your user OCID.
-  fingerprint          = "" # Replace with user fingerprint.
-  private_key_path     = "" # Replace with user private key local path.
+  tenancy_ocid         = "ocid1.tenancy.oc1..aaaaaaaahbsqqoq6hngruus5z4e3zclij32obawvlsxsrz4culbvq5k5p2ia" # Replace with your tenancy OCID.
+  user_ocid            = "ocid1.user.oc1..aaaaaaaacm7yvg4f5tvm4jdf4qsnuo47fsywie7ldniit4nkfnt64hbrdg6q" # Replace with your user OCID.
+  fingerprint          = "d4:ce:c1:ad:79:c3:6a:fd:f5:57:46:0b:e5:b4:c3:26" # Replace with user fingerprint.
+  private_key_path     = "/Users/yupeyang/.oci/oci_api_key.pem" # Replace with user private key local path.
   private_key_password = "" # Replace with private key password, if any.
-  region               = "" # Replace with region name.
-  service_label        = "" # Prefix prepended to deployed resource names.
+  region               = "us-phoenix-1" # Replace with region name.
+  service_label        = "ztcli" # Prefix prepended to deployed resource names.
 
   # ------------------------------------------------------
   # ----- General
@@ -45,13 +47,13 @@ module "zero_trust_landing_zone" {
   # -----------------------------------------------------------
   # ----- Network Appliance Option: Fortinet FortiGate Firewall
   # -----------------------------------------------------------
-  # hub_vcn_deploy_net_appliance_option = "Fortinet FortiGate Firewall"
-  # net_fortigate_version               = "7.2.9_(_X64_)" # Option: "7.4.4_(_X64_)", "7.2.9_(_X64_)"
-  # net_appliance_flex_shape_memory     = 56
-  # net_appliance_flex_shape_cpu        = 4
-  # net_appliance_boot_volume_size      = 60
-  # net_appliance_public_rsa_key        = "" #Enter the Public RSA Key
-  # net_appliance_shape                 = "VM.Standard.E4.Flex"
+  hub_vcn_deploy_net_appliance_option = "Fortinet FortiGate Firewall"
+  net_fortigate_version               = "7.2.9_(_X64_)" # Option: "7.4.4_(_X64_)", "7.2.9_(_X64_)"
+  net_appliance_flex_shape_memory     = 56
+  net_appliance_flex_shape_cpu        = 4
+  net_appliance_boot_volume_size      = 60
+  net_appliance_public_rsa_key        = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMffzPTbnVZdf8HWXnCzdWYrCUdYRNPEaqhEOIF3CS7t <yupei.yang@oracle.com>" #Enter the Public RSA Key
+  net_appliance_shape                 = "VM.Standard.E4.Flex"
 
   # ---------------------------------------------------------------------
   # ----- Network Appliance Option: Palo Alto Networks VM-Series Firewall
@@ -89,7 +91,7 @@ module "zero_trust_landing_zone" {
   # ------------------------------------------------------
   # ----- Security
   # ------------------------------------------------------
-  enable_cloud_guard    = true # Set to false if Cloud Guard has already been enabled.
+  enable_cloud_guard    = false # Set to false if Cloud Guard has already been enabled.
   enable_security_zones = true # Deploys a security zone for this deployment in the enclosing compartment.
   vss_create            = true # Enables Vulnerability Scanning Service for Compute instances.
 
